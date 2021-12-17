@@ -1,0 +1,7 @@
+#scrollbarHide::-webkit-scrollbar {
+  width: 0;
+}
+
+.UserScreen #scrollbarHide {
+  max-height: 700px;
+}
