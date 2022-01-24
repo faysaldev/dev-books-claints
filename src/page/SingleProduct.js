@@ -67,7 +67,7 @@ function SingleProduct() {
             <img
               src={
                 selectSingleData
-                  ? URL.createObjectURL(selectSingleData.image)
+                  ? selectSingleData?.image
                   : "/engineers-day-concept_23-2148628083.jpg"
               }
               className="w-full object-contain"
