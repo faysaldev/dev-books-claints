@@ -102,6 +102,7 @@ function LoginPage() {
               email: email,
               password: password,
               photoURL: userPhoto,
+              role: "user",
             })
             .then(function (response) {
               console.log(response?.data);
