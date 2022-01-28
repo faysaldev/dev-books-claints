@@ -6,6 +6,7 @@ import {
   deleteSingleProduct,
   selectSingle,
   allCart,
+  addToBookMark,
 } from "../features/appSlice";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -17,6 +18,8 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { selectUser } from "../features/userSlice";
+import swal from "sweetalert";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 
 function SingleProduct() {
   const dispatch = useDispatch();
@@ -25,6 +28,7 @@ function SingleProduct() {
   const [countity, setCountity] = useState(0);
   // !user data state
   const userData = useSelector(selectUser);
+  const [isBookmark, setItsBookmark] = useState(false);
 
   const colorPalet = ["yellow", "green", "gray", "red", "blue"];
 
@@ -36,12 +40,38 @@ function SingleProduct() {
       dispatch(
         allCart({ _id, image, price, title, details, category, quantity: 1 })
       );
+      swal({
+        title: "Added!",
+        text: "This Product Added to the Card 😎!",
+        icon: "success",
+        button: "Ok!",
+      });
+
+      history.push("/orders");
     }
   };
 
-  const buyNow = () => {
+  const BookmarkAdd = () => {
     if (userData) {
-      return;
+      const { _id, image, price, title, details, category } = selectSingleData;
+
+      dispatch(
+        addToBookMark({
+          _id,
+          image,
+          title,
+          category,
+          price,
+          details,
+        })
+      );
+      swal({
+        title: "BookMark Added!",
+        text: "This Product Added to the BookMark List 😎!",
+        icon: "success",
+        button: "Ok!",
+      });
+      history.push("/bookmark");
     } else {
       history.push("/login");
     }
@@ -74,7 +104,7 @@ function SingleProduct() {
             />
           </div>
           {/* left bottom review */}
-          <div className="px-2 py-4">
+          {/* <div className="px-2 py-4">
             <div className="flex items-center justify-between">
               <h4 className="text-gray-700 font-semibold text-md">
                 Recently Viewed
@@ -82,7 +112,7 @@ function SingleProduct() {
               <ArrowForwardIcon className="p-1 bg-gray-200 rounded-full cursor-pointer" />
             </div>
             {/* bottom */}
-            <div className="grid grid-cols-3 sm:grid-cols-4 gap-x-4 py-6">
+          {/* <div className="grid grid-cols-3 sm:grid-cols-4 gap-x-4 py-6">
               <img
                 className="rounded-md cursor-pointer hover:opacity-70"
                 src="engineers-day-with-safety-helmet_23-2148637497.jpg"
@@ -99,7 +129,7 @@ function SingleProduct() {
                 alt=""
               />
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Right */}
@@ -154,7 +184,7 @@ function SingleProduct() {
           </div>
 
           {/* button */}
-          <div className="md:space-x-1 pb-4">
+          <div className="md:space-x-4 pb-4">
             <button
               onClick={addToCart}
               className="px-10 border text-center text-md font-semibold rounded-md bg-black text-white py-3 hover:bg-red-300 hover:text-black focus:bg-green-500"
@@ -163,10 +193,10 @@ function SingleProduct() {
               Add to Cart
             </button>
             <button
-              onClick={buyNow}
-              className="px-10 border-2 text-center text-md font-semibold rounded-md bg-transparent text-black py-3"
+              onClick={BookmarkAdd}
+              className="px-2 border-2 text-center text-md font-semibold rounded-md bg-transparent text-black py-3"
             >
-              <BookmarkBorderIcon />
+              {isBookmark ? <BookmarkIcon /> : <BookmarkBorderIcon />}
             </button>
           </div>
 

@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+} from "react-router-dom";
 import HomePage from "./page/HomePage";
 import AdminPage from "./page/AdminPage";
 import LoginPage from "./page/LoginPage";
@@ -10,6 +15,7 @@ import AllProduct from "./page/AllProduct";
 import EditePage from "./page/EditePage";
 import AddPage from "./page/AddPage";
 import UserPage from "./page/UserPage";
+import BoomarkPage from "./page/BoomarkPage";
 // todo for import the user slice
 import { loginUser, logoutUser, selectUser } from "./features/userSlice";
 import { selectAll, addAllProduct } from "./features/appSlice";
@@ -20,16 +26,7 @@ function App() {
   const dispatch = useDispatch();
   const selectU = useSelector(selectUser);
   const selectAllProduct = useSelector(selectAll);
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/dev/product/all")
-      .then(function (response) {
-        dispatch(addAllProduct(response?.data?.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, [selectAllProduct]);
+  const history = useHistory();
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
@@ -56,7 +53,7 @@ function App() {
     } else {
       dispatch(logoutUser());
     }
-  }, []);
+  }, [history]);
 
   return (
     <Router>
@@ -75,6 +72,10 @@ function App() {
 
         <Route exact path="/orders">
           <OrderPage />
+        </Route>
+
+        <Route exact path="/bookmark">
+          <BoomarkPage />
         </Route>
 
         <Route exact path="/admin-all-product">

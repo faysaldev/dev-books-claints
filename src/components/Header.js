@@ -46,6 +46,9 @@ function Header({ adminMobile }) {
                 <Link to="/orders">Orders</Link>
               </li>
               <li>
+                <Link to="/bookmark">Bookmark</Link>
+              </li>
+              <li>
                 <Link to="/admin-panel">Admin</Link>
               </li>
               {userData ? (
@@ -85,18 +88,31 @@ function Header({ adminMobile }) {
                 <Link to="/orders">Orders</Link>
               </li>
               <li className="px-3 py-2 font-semibold border-b border-gray-200">
+                <Link to="/bookmark">Bookmark</Link>
+              </li>
+              <li className="px-3 py-2 font-semibold border-b border-gray-200">
                 <Link to="/admin-panel">Admin</Link>
               </li>
             </ul>
 
             <div className="flex items-center justify-center py-6">
-              <Link
-                to="/login"
-                className="text-center px-6 bg-gradient-to-r from-blue-500 to-purple-500 cursor-pointer text-white w-2/3
+              {userData ? (
+                <Avatar
+                  className="cursor-pointer"
+                  onClick={LogoutUser}
+                  src={userData?.photoURL}
+                />
+              ) : (
+                <li>
+                  <Link
+                    to="/login"
+                    className="text-center px-6 bg-gradient-to-r from-blue-500 to-purple-500 cursor-pointer text-white w-2/3
                         py-3 rounded-md shadow-sm font-semibold uppercase"
-              >
-                Login
-              </Link>
+                  >
+                    Login
+                  </Link>
+                </li>
+              )}
             </div>
           </div>
         )}

@@ -17,7 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser, selectUser } from "../features/userSlice";
 import axios from "axios";
 import { css } from "@emotion/react";
-import PulseLoader from "react-spinners/ClipLoader";
+import ScaleLoader from "react-spinners/ScaleLoader";
+import swal from "sweetalert";
 
 // firebase login
 
@@ -36,6 +37,9 @@ function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   // * this users details for the registration user
   const [userPhoto, setUserPhoto] = useState(null);
+
+  // FIXME: this email already exist
+  const [existEmail, setExistEmail] = useState(false);
   // TODo to chage the login  state
   const LoginStateChanged = () => {
     setLogin(!login);
@@ -49,7 +53,6 @@ function LoginPage() {
   const override = css`
     display: block;
     margin: 0 auto;
-    border-color: red;
   `;
 
   let [loading, setLoading] = useState(false);
@@ -75,21 +78,49 @@ function LoginPage() {
   // create an account
   const careateAccount = () => {
     axios
-      .post("http://localhost:5000/dev/user/post", {
-        name: name,
-        email: email,
-        password: password,
-        photoURL: userPhoto,
-      })
+      .post(
+        "http://localhost:5000/dev/user/login",
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then(function (response) {
-        console.log(response?.data);
-        localStorage.setItem("user", JSON.stringify(response?.data.email));
-        dispatch(loginUser(response?.data));
-        response?.data?.email && history.replace("/");
+        if (response?.data) {
+          swal({
+            text: "This Email Was Already Exiest",
+          });
+        } else {
+          axios
+            .post("http://localhost:5000/dev/user/post", {
+              name: name,
+              email: email,
+              password: password,
+              photoURL: userPhoto,
+            })
+            .then(function (response) {
+              console.log(response?.data);
+              localStorage.setItem(
+                "user",
+                JSON.stringify(response?.data.email)
+              );
+              dispatch(loginUser(response?.data));
+              response?.data?.email && history.replace("/");
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
+
     // dispatch(
     //   loginUser({ name, email, password, role: "admin", photoURL: userPhoto })
     // );
@@ -110,11 +141,18 @@ function LoginPage() {
         }
       )
       .then(function (response) {
-        console.log(response.data);
-        localStorage.setItem("user", JSON.stringify(response?.data.email));
-        dispatch(loginUser(response?.data));
+        if (response.status === 200) {
+          console.log(response.data);
+          localStorage.setItem("user", JSON.stringify(response?.data.email));
+          dispatch(loginUser(response?.data));
 
-        response?.data?.email && history.replace("/");
+          response?.data?.email && history.replace("/");
+        } else {
+          swal("Email or Password was Wrong!", {
+            buttons: "Try again",
+            timer: 3000,
+          });
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -122,6 +160,7 @@ function LoginPage() {
   };
 
   const handleImageUpload = (event) => {
+    setLoading(true);
     const imageData = new FormData();
     imageData.set("key", "43c828f276d3172b181bfb3a02198111");
     imageData.append("image", event.target.files[0]);
@@ -130,7 +169,9 @@ function LoginPage() {
       .post("https://api.imgbb.com/1/upload", imageData)
       .then((response) => {
         setUserPhoto(response.data.data.display_url);
-        console.log(userPhoto);
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
       })
       .catch((error) => {
         console.log(error);
@@ -166,12 +207,6 @@ function LoginPage() {
             <div className="flex items-center justify-between pb-6 border-b">
               <Link to={"/"} className="text-red-700 text-md font-semibold">
                 Devebooks &copy;
-                <PulseLoader
-                  color={color}
-                  loading={loading}
-                  css={override}
-                  size={10}
-                />
               </Link>
               <div onClick={() => setDark(!dark)} className="cursor-pointer">
                 {dark ? <ToggleOnIcon /> : <ToggleOffIcon />}
@@ -226,6 +261,11 @@ function LoginPage() {
 
               <div className="space-y-3 pb-3">
                 <h3 className="text-md font-semibold">Email Addres</h3>
+                {/* {existEmail && (
+                  <span className="text-red-500 text-sm">
+                    This Email Already Exiest
+                  </span>
+                )} */}
                 <TextField
                   fullWidth
                   type="email"
@@ -310,7 +350,16 @@ function LoginPage() {
                       }`}
                       disabled={!userPhoto || !fillUpInput}
                     >
-                      Create an account
+                      {!loading ? (
+                        " Create an account"
+                      ) : (
+                        <ScaleLoader
+                          color={color}
+                          loading={loading}
+                          css={override}
+                          size={30}
+                        />
+                      )}
                     </button>
                   )}
                 </div>
