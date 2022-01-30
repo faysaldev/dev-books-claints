@@ -24,7 +24,9 @@ function OrderCard({
   // const singleProductData = useSelector(selectSingle);
   const dispatch = useDispatch();
   const AddTocart = () => {
-    dispatch(allCart({ _id, image, price, title, details, category }));
+    dispatch(
+      allCart({ _id, image, price: Number(price), title, details, category })
+    );
     swal({
       title: "Added!",
       text: "This Product Added to the Card 😎!",

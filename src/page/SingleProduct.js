@@ -38,7 +38,15 @@ function SingleProduct() {
     if (selectSingleData) {
       const { _id, image, price, title, details, category } = selectSingleData;
       dispatch(
-        allCart({ _id, image, price, title, details, category, quantity: 1 })
+        allCart({
+          _id,
+          image,
+          price: Number(price),
+          title,
+          details,
+          category,
+          quantity: 1,
+        })
       );
       swal({
         title: "Added!",

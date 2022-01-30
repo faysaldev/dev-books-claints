@@ -103,6 +103,9 @@ export const selectEditeProduct = (state) => state.app.editeProduct;
 export const selectEditeUser = (state) => state.app.editeUser;
 export const selectAllBookmark = (state) => state.app.bookmark;
 export const selectTotal = (state) =>
-  state.app.cartProduct.reduce((total, product) => total + product.price, 0);
+  state.app.cartProduct.reduce(
+    (total, product) => total + product.quantity * product.price,
+    0
+  );
 
 export default appSlice.reducer;

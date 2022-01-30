@@ -26,12 +26,14 @@ function HomePage() {
 
     setTimeout(() => {
       setAllProduct(() =>
-        allProduct.filter((item) =>
-          item.title.toLocaleLowerCase().match(search.toLocaleLowerCase())
+        allProduct.filter(
+          (item) =>
+            item.title.toLocaleLowerCase().match(search.toLocaleLowerCase()) ||
+            item.category.toLocaleLowerCase().match(search.toLocaleLowerCase())
         )
       );
       setLoading(false);
-    }, 5000);
+    }, 3000);
   };
 
   const handleChange = (e) => {
