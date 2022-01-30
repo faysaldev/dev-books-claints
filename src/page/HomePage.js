@@ -90,7 +90,7 @@ function HomePage() {
         <Header />
         {/* main */}
 
-        <main className="max-w-6xl mx-auto pt-40">
+        <main className="max-w-6xl mx-auto px-5 md:px-3 pt-40">
           {/* home search bar input  */}
           <form className="flex items-center justify-between max-w-sm sm:max-w-lg mx-auto p-3 bg-white text-gray-600 border rounded-md shadow hover:shadow-xl focus-within:shadow-xl">
             <SearchIcon className="mr-4" />
@@ -122,7 +122,7 @@ function HomePage() {
               />
             </div>
           ) : (
-            <div className="pt-10 sm:pt-16 px-6 grid sm:grid-cols-2 md:grid-cols-3 sm:gap-x-6 sm:gap-y-8">
+            <div className="pt-10 sm:pt-16 sm:px-6 grid sm:grid-cols-2 md:grid-cols-3 sm:gap-x-6 gap-y-8">
               {allProduct?.map(
                 ({
                   _id,

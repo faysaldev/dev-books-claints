@@ -48,7 +48,7 @@ function OrderCard({
   };
   return (
     <div className="flex items-center space-x-4 border shadow-md rounded-md px-4 py-3">
-      <div className="mx-6  w-24">
+      <div className="mx-0 sm:mx-6  w-24">
         <img src={image} alt="" className="w-full object-contain rounded-md" />
       </div>
       {/* right content */}

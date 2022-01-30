@@ -46,11 +46,11 @@ function AdminPage() {
             <AdminTopNav dark={dark} />
             {/* admin page main content */}
             <main
-              className="px-6 py-8 bg-red-50 rounded-md h-screen overflow-y-scroll"
+              className="px-6 py-8 bg-red-50 rounded-md h-screen overflow-y-scroll overflow-x-hidden"
               id="scrollbarHide"
             >
               {/* live order */}
-              <div className="px-2 py-3 space-y-6">
+              <div className="px-0 sm:px-2 py-3 space-y-6">
                 <h2 className="text-xl font-semibold">Live Orders</h2>
                 {/* live order card */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 sm:gap-x-6">
@@ -116,17 +116,21 @@ function AdminPage() {
                 </div>
 
                 {/* orders middle nav */}
-                <div>
-                  <ul className="flex items-center justify-between px-4 py-3 bg-white rounded-md shadow text-gray-600 text-xs md:text-md font-semibold sticky top-0 z-10 mb-4">
-                    <li className="cursor-pointer">
+                <div className="">
+                  <ul className="flex items-center justify-around sm:justify-between px-4 pl-0 sm:pl-4 py-3 bg-white rounded-md shadow text-gray-600 text-xs md:text-md font-semibold sticky top-0 z-10 mb-4">
+                    <li className="cursor-pointer hidden sm:inline-flex">
                       Id <ArrowDropDownIcon />
                     </li>
                     <li className="cursor-pointer">Name</li>
-                    <li className="cursor-pointer">Payment</li>
-                    <li className="cursor-pointer">
+                    <li className="cursor-pointer hidden sm:inline-flex">
+                      Payment
+                    </li>
+                    <li className="cursor-pointer hidden sm:inline-flex">
                       Time remaining <ArrowDropDownIcon />
                     </li>
-                    <li className="cursor-pointer">Type</li>
+                    <li className="cursor-pointer hidden sm:inline-flex">
+                      Type
+                    </li>
                     <li className="cursor-pointer">Status</li>
                     <li className="cursor-pointer">Total</li>
                     <li className="cursor-pointer">Action</li>

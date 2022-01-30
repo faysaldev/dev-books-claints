@@ -228,7 +228,7 @@ function AddPage() {
               } gap-y-4`}
             >
               {/* Add Product Section */}
-              <div className="pr-10 border-r">
+              <div className="pr-0 sm:pr-10 border-r">
                 {/* Add Product page top */}
                 <h1 className="text-xl font-semibold pb-4">
                   Add A New Product
@@ -398,7 +398,7 @@ function AddPage() {
 
                     {/* role */}
                     <select
-                      className="w-full col-span-2 border border-green-500 rounded-md shadow-md outline-none px-4 py-2"
+                      className="w-full mt-4 sm:mt-0 col-span-2 border border-green-500 rounded-md shadow-md outline-none px-4 py-2"
                       name=""
                       id=""
                       onChange={(e) => setRole(e.target.value)}

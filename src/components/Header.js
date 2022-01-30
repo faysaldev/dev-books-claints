@@ -35,7 +35,7 @@ function Header({ adminMobile }) {
 
           {/* Header Right */}
 
-          <div className="px-4 hidden sm:block w-1/3">
+          <div className="px-4 hidden md:block w-1/3">
             <ul className="flex justify-between items-center">
               {!itsHome && (
                 <li>
@@ -68,7 +68,7 @@ function Header({ adminMobile }) {
           {/* menu icon */}
 
           <div
-            className="px-3 py-4 cursor-pointer flex sm:hidden"
+            className="px-3 py-4 cursor-pointer flex md:hidden"
             onClick={() => (menu ? setMenu(false) : setMenu(true))}
           >
             <MenuIcon />
@@ -77,7 +77,7 @@ function Header({ adminMobile }) {
 
         {/* moile menu */}
         {menu && (
-          <div className="mobile_menu w-full sm:hidden block">
+          <div className="mobile_menu w-full md:hidden block">
             <ul>
               {!itsHome && (
                 <li className="px-3 py-2 font-semibold border-b border-gray-200">

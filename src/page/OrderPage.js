@@ -20,24 +20,6 @@ function OrderPage() {
         <Header />
         {/* main */}
         <main className="max-w-6xl mx-auto pt-20">
-          {/* main top */}
-          {/* <div className="pt-4 pb-10 text-center space-y-2">
-            {cardProduct.length > 0 ? (
-              <>
-                <h2 className="text-3xl text-gray-700 font-semibold">
-                  Thanks for your order :)
-                </h2>
-                <p className="text-md text-gray-600">
-                  Your Order is being processed
-                </p>
-              </>
-            ) : (
-              <h2 className="text-3xl text-gray-700 font-semibold">
-                Your order is being empety ):
-              </h2>
-            )}
-          </div> */}
-
           {/* orderlist */}
 
           <div className="px-4 py-3">

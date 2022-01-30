@@ -7,6 +7,8 @@ import {
   selectSingle,
   allCart,
   addToBookMark,
+  selectAllBookmark,
+  selectCartAll,
 } from "../features/appSlice";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -20,6 +22,7 @@ import { useHistory } from "react-router-dom";
 import { selectUser } from "../features/userSlice";
 import swal from "sweetalert";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import SemilarProduct from "../components/SingleProductPage/SemilarProduct";
 
 function SingleProduct() {
   const dispatch = useDispatch();
@@ -28,7 +31,22 @@ function SingleProduct() {
   const [countity, setCountity] = useState(0);
   // !user data state
   const userData = useSelector(selectUser);
-  const [isBookmark, setItsBookmark] = useState(false);
+  // const [isBookmark, setItsBookmark] = useState(false);
+
+  // TODO: select to the cart and bookmark is true or not
+  const cartAll = useSelector(selectCartAll);
+  const bookmarkAll = useSelector(selectAllBookmark);
+
+  console.log(cartAll);
+  const alreadyCart = cartAll.find(
+    (cart) => cart._id === selectSingleData?._id
+  );
+  const isBookmark = bookmarkAll.find(
+    (bookmark) => bookmark._id === selectSingleData?._id
+  );
+
+  console.log(alreadyCart);
+  console.log(isBookmark);
 
   const colorPalet = ["yellow", "green", "gray", "red", "blue"];
 
@@ -111,33 +129,6 @@ function SingleProduct() {
               className="w-full object-contain"
             />
           </div>
-          {/* left bottom review */}
-          {/* <div className="px-2 py-4">
-            <div className="flex items-center justify-between">
-              <h4 className="text-gray-700 font-semibold text-md">
-                Recently Viewed
-              </h4>
-              <ArrowForwardIcon className="p-1 bg-gray-200 rounded-full cursor-pointer" />
-            </div>
-            {/* bottom */}
-          {/* <div className="grid grid-cols-3 sm:grid-cols-4 gap-x-4 py-6">
-              <img
-                className="rounded-md cursor-pointer hover:opacity-70"
-                src="engineers-day-with-safety-helmet_23-2148637497.jpg"
-                alt=""
-              />
-              <img
-                className="rounded-md cursor-pointer hover:opacity-70"
-                src="engineers-day-with-safety-helmet_23-2148637497.jpg"
-                alt=""
-              />
-              <img
-                className="rounded-md cursor-pointer hover:opacity-70"
-                src="engineers-day-with-safety-helmet_23-2148637497.jpg"
-                alt=""
-              />
-            </div>
-          </div> */}
         </div>
 
         {/* Right */}
@@ -150,7 +141,9 @@ function SingleProduct() {
             <FavoriteBorderIcon className="w-40 p-1 bg-gray-50 rounded-full cursor-pointer" />
           </div>
           {/* decription */}
-          <p className="text-xs pb-4 sm:text-md">{selectSingleData?.details}</p>
+          <p className="text-xs pb-4 sm:text-md pr-6">
+            {selectSingleData?.details}
+          </p>
           {/* Price */}
           <h1
             className={`${"font-semibold text-xl sm:text-2xl pb-4"} ${colours}`}
@@ -197,8 +190,14 @@ function SingleProduct() {
               onClick={addToCart}
               className="px-10 border text-center text-md font-semibold rounded-md bg-black text-white py-3 hover:bg-red-300 hover:text-black focus:bg-green-500"
             >
-              <AddShoppingCartIcon />
-              Add to Cart
+              {alreadyCart ? (
+                "Added"
+              ) : (
+                <>
+                  <AddShoppingCartIcon />
+                  Add to Cart
+                </>
+              )}
             </button>
             <button
               onClick={BookmarkAdd}
@@ -212,6 +211,10 @@ function SingleProduct() {
           <p className="font-semibold text-md">Home Delivery - $ 10</p>
         </div>
       </main>
+      <SemilarProduct
+        _id={selectSingleData?._id}
+        category={selectSingleData?.category}
+      />
       <Fotter />
     </div>
   );

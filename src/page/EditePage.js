@@ -129,11 +129,9 @@ function EditePage() {
             <AdminTopNav />
             {/* admin page main content */}
             <main>
-              <div className="pr-10 border-r">
+              <div className="px-2 md:pr-10 border-r pb-16">
                 {/* Add Product page top */}
-                <h1 className="text-xl font-semibold pb-4">
-                  Add A New Product
-                </h1>
+                <h1 className="text-xl font-semibold pb-4">Edite Product</h1>
                 <form className="w-full grid grid-cols-2 gap-x-3">
                   <div className="space-y-3 pb-3">
                     <h3 className="text-md font-semibold">Product Name</h3>

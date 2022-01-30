@@ -6,15 +6,17 @@ import { Avatar } from "@material-ui/core";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser, selectUser } from "../../features/userSlice";
+import { useHistory } from "react-router-dom";
 
 function AdminTopNav({ dark }) {
   const userData = useSelector(selectUser);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   return (
     <div className="flex items-center justify-between px-4 py-6">
       {/* top nav left */}
-      <div className="flex items-center border px-2 py-3 rounded-md focus-within:ring-pink-600 focus-within:ring-1">
+      <div className=" hidden sm:flex items-center border px-2 py-3 rounded-md focus-within:ring-pink-600 focus-within:ring-1">
         <SearchIcon className="text-gray-400 sm:mr-2" />
         <input
           type="text"
@@ -25,7 +27,7 @@ function AdminTopNav({ dark }) {
 
       {/* top nav right */}
       <div
-        className={`flex items-center justify-between space-x-7 md:space-x-6 ${
+        className={`flex items-center justify-center sm:justify-between space-x-12 md:space-x-6 ${
           dark && "text-white"
         }`}
       >
@@ -41,7 +43,10 @@ function AdminTopNav({ dark }) {
         </div>
         <div className="flex items-center space-x-1">
           <Avatar
-            onClick={() => dispatch(logoutUser())}
+            onClick={() => {
+              dispatch(logoutUser());
+              history.push("/");
+            }}
             src={userData?.photoURL}
             className="shadow transform hover:scale-150
                      transition-all cursor-pointer"

@@ -332,7 +332,7 @@ function LoginPage() {
 
                 {/* submit button */}
 
-                <div className={`${login && "col-span-2"}`}>
+                <div className={`${login && "col-span-2 gap-x-3"}`}>
                   {login ? (
                     <button
                       className={`w-full my-6 px-4 py-2 bg-red-600 text-white rounded-md font-bold hover:bg-red-400 shadow-md ${
@@ -346,7 +346,7 @@ function LoginPage() {
                   ) : (
                     <button
                       onClick={careateAccount}
-                      className={`w-full my-6 px-4 py-2 bg-green-600 text-white rounded-md font-bold hover:bg-green-400 shadow-md ${
+                      className={`ml-4 my-6 px-4 py-2 bg-green-600 text-white rounded-md font-bold hover:bg-green-400 shadow-md ${
                         !fillUpInput && "cursor-not-allowed"
                       }`}
                       disabled={!userPhoto || !fillUpInput}
