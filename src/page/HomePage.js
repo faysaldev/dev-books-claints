@@ -9,13 +9,22 @@ import { css } from "@emotion/react";
 import HashLoader from "react-spinners/HashLoader";
 import axios from "axios";
 import { addAllProduct } from "../features/appSlice";
-import { addUser, selectAllUSers } from "../features/userSlice";
+import {
+  addUser,
+  selectAllUSers,
+  loginUser,
+  logoutUser,
+  selectUser,
+} from "../features/userSlice";
 
 function HomePage() {
   const [search, setSearch] = useState("");
   const allP = useSelector((state) => state.app.allProduct);
 
   const [allProduct, setAllProduct] = useState(allP);
+
+  // TODO:slect the user
+  const selectU = useSelector(selectUser);
 
   // setProject(() => ProjectData.filter((item) => item.title.toLocaleLowerCase().match(searchText.toLocaleLowerCase())))
 
@@ -82,6 +91,35 @@ function HomePage() {
         console.log(error);
       });
   }, [selectAllUSers]);
+
+  // TODO: get the localStorage get user
+  useEffect(() => {
+    const localStorageUser = localStorage.getItem("user");
+    if (localStorageUser) {
+      console.log("the user found");
+      console.log();
+      axios
+        .post(
+          "http://localhost:5000/dev/user/getemail",
+          {
+            email: "fmridha166@gmail.com",
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then(function (response) {
+          dispatch(loginUser(response?.data[0]));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      dispatch(logoutUser());
+    }
+  }, [selectU]);
 
   return (
     <div className="homeScreen">

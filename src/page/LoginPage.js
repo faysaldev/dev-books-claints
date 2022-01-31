@@ -82,7 +82,6 @@ function LoginPage() {
         "http://localhost:5000/dev/user/login",
         {
           email: email,
-          password: password,
         },
         {
           headers: {
@@ -91,6 +90,7 @@ function LoginPage() {
         }
       )
       .then(function (response) {
+        console.log(response.data);
         if (response?.data) {
           swal({
             text: "This Email Was Already Exiest",
@@ -106,10 +106,7 @@ function LoginPage() {
             })
             .then(function (response) {
               console.log(response?.data);
-              localStorage.setItem(
-                "user",
-                JSON.stringify(response?.data.email)
-              );
+              localStorage.setItem("user", response?.data.email);
               dispatch(loginUser(response?.data));
               response?.data?.email && history.replace("/");
             })
@@ -144,7 +141,7 @@ function LoginPage() {
       .then(function (response) {
         if (response.status === 200) {
           console.log(response.data);
-          localStorage.setItem("user", JSON.stringify(response?.data.email));
+          localStorage.setItem("user", response?.data.email);
           dispatch(loginUser(response?.data));
 
           response?.data?.email && history.replace("/");

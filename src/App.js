@@ -28,33 +28,6 @@ function App() {
   const selectAllProduct = useSelector(selectAll);
   const history = useHistory();
 
-  useEffect(() => {
-    if (localStorage.getItem("user")) {
-      axios
-        .post(
-          "http://localhost:5000/dev/user/login",
-          {
-            email: localStorage.getItem("user"),
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then(function (response) {
-          dispatch(loginUser(response?.data));
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      const user = localStorage.getItem("user");
-      dispatch(loginUser(user));
-    } else {
-      dispatch(logoutUser());
-    }
-  }, [history]);
-
   return (
     <Router>
       <Switch>
