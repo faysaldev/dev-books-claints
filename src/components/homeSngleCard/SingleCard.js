@@ -61,7 +61,8 @@ function SingleCard({
         <img
           src={image ? image : "/engineers-day-concept_23-2148628083.jpg"}
           alt={image}
-          className="px-2 py-2 object-contain w-full rounded-md"
+          style={{ maxHeight: "330px" }}
+          className="px-2 py-2 object-contain w-full h-full rounded-md"
         />
       </div>
       {/* card top */}

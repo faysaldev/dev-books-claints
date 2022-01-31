@@ -60,8 +60,8 @@ function HomePage() {
     margin: 0 auto;
   `;
 
-  let [loading, setLoading] = useState(false);
-  let [color, setColor] = useState("#56DDC3");
+  const [loading, setLoading] = useState(false);
+  const [color, setColor] = useState("#56DDC3");
 
   // featch data
 
@@ -85,7 +85,6 @@ function HomePage() {
       .get("http://localhost:5000/dev/user/all")
       .then(function (response) {
         dispatch(addUser(response?.data.data));
-        console.log(response?.data.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -96,8 +95,6 @@ function HomePage() {
   useEffect(() => {
     const localStorageUser = localStorage.getItem("user");
     if (localStorageUser) {
-      console.log("the user found");
-      console.log();
       axios
         .post(
           "http://localhost:5000/dev/user/getemail",
@@ -161,32 +158,38 @@ function HomePage() {
             </div>
           ) : (
             <div className="pt-10 sm:pt-16 sm:px-6 grid sm:grid-cols-2 md:grid-cols-3 sm:gap-x-6 gap-y-8">
-              {allProduct?.map(
-                ({
-                  _id,
-                  image,
-                  price,
-                  title,
-                  details,
-                  category,
-                  username,
-                  userImg,
-                  createdAt,
-                  updatedAt,
-                }) => (
-                  <SingleCard
-                    _id={_id}
-                    title={title}
-                    price={price}
-                    category={category}
-                    details={details}
-                    image={image}
-                    username={username}
-                    userImg={userImg}
-                    createdAt={createdAt}
-                    updatedAt={updatedAt}
-                  />
-                )
+              {allProduct.length >= 1 ? (
+                <>
+                  {allProduct?.map(
+                    ({
+                      _id,
+                      image,
+                      price,
+                      title,
+                      details,
+                      category,
+                      username,
+                      userImg,
+                      createdAt,
+                      updatedAt,
+                    }) => (
+                      <SingleCard
+                        _id={_id}
+                        title={title}
+                        price={price}
+                        category={category}
+                        details={details}
+                        image={image}
+                        username={username}
+                        userImg={userImg}
+                        createdAt={createdAt}
+                        updatedAt={updatedAt}
+                      />
+                    )
+                  )}
+                </>
+              ) : (
+                <h1>There was no product</h1>
               )}
             </div>
           )}

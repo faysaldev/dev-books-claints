@@ -167,9 +167,7 @@ function LoginPage() {
       .post("https://api.imgbb.com/1/upload", imageData)
       .then((response) => {
         setUserPhoto(response.data.data.display_url);
-        setTimeout(() => {
-          setLoading(false);
-        }, 3000);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
