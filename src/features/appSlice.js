@@ -18,6 +18,20 @@ export const appSlice = createSlice({
     addAProduct: (state, action) => {
       state.allProduct = [...state.allProduct, action.payload];
     },
+
+    removeAProduct: (state, action) => {
+      const findIndex = state.allProduct.findIndex(
+        (item) => item._id === action.payload._id
+      );
+
+      const newAllProduct = [...state.allProduct];
+      if (findIndex >= 0) {
+        newAllProduct.splice(findIndex, 1);
+      }
+
+      state.allProduct = newAllProduct;
+    },
+
     removeAFromCart: (state, action) => {
       const findIndex = state.cartProduct.findIndex(
         (item) => item._id === action.payload._id
@@ -85,6 +99,7 @@ export const appSlice = createSlice({
 export const {
   addAllProduct,
   addAProduct,
+  removeAProduct,
   prevSingleProduct,
   allCart,
   deleteSingleProduct,

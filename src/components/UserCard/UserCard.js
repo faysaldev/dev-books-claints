@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { editeUser } from "../../features/appSlice";
 import swal from "sweetalert";
 import axios from "axios";
+import { removeAUser } from "../../features/userSlice";
 function UserCard({ _id, username, avatar, email, password, role }) {
   const [action, setAction] = useState(false);
 
@@ -16,7 +17,7 @@ function UserCard({ _id, username, avatar, email, password, role }) {
     dispatch(editeUser({ _id, username, avatar, email, password, role }));
   };
 
-  const deleteHandler = (_id) => {
+  const deleteHandler = () => {
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this User!",
@@ -28,6 +29,7 @@ function UserCard({ _id, username, avatar, email, password, role }) {
         axios
           .delete(`http://localhost:5000/dev/user/delete/${_id}`)
           .then((response) => {
+            dispatch(removeAUser({ _id }));
             swal("Poof! Your User has been deleted!", {
               icon: "success",
             });

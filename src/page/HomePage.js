@@ -77,7 +77,7 @@ function HomePage() {
       .catch(function (error) {
         console.log(error);
       });
-  }, [selectAllProduct]);
+  }, []);
 
   // todo get all user from the api
   useEffect(() => {
@@ -89,7 +89,7 @@ function HomePage() {
       .catch(function (error) {
         console.log(error);
       });
-  }, [selectAllUSers]);
+  }, []);
 
   // TODO: get the localStorage get user
   useEffect(() => {

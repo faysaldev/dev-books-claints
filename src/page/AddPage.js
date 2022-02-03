@@ -5,7 +5,7 @@ import AdminTopNav from "../components/AdminPage/AdminTopNav";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, selectUser } from "../features/userSlice";
+import { addANewUser, addUser, selectUser } from "../features/userSlice";
 import { useEffect } from "react";
 import { addAProduct } from "../features/appSlice";
 import MobileMenubar from "../components/AdminPage/MobileMenu";
@@ -115,26 +115,53 @@ function AddPage() {
       photoURL: userPhoto,
       role: role,
     };
+
     axios
-      .post("http://localhost:5000/dev/user/post", userInfo, {
-        headers: {
-          "Content-Type": "application/json",
+      .post(
+        "http://localhost:5000/dev/user/login",
+        {
+          email: email,
         },
-      })
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then(function (response) {
-        swal({
-          title: "Thanks For add User !",
-          text: "User Added Successfully😃!",
-          icon: "success",
-          button: "Ok",
-        });
+        console.log(response.data);
+        if (response?.data) {
+          swal({
+            text: "This Email Was Already Exiest",
+          });
+        } else {
+          axios
+            .post("http://localhost:5000/dev/user/post", userInfo, {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+            .then(function (response) {
+              dispatch(addANewUser(response?.data));
+              swal({
+                title: "Thanks For add User !",
+                text: "User Added Successfully😃!",
+                icon: "success",
+                button: "Ok",
+              });
+            })
+            .catch(function (error) {
+              swal({
+                text: "There Was an Error 🤔",
+                button: "Try Again",
+              });
+            });
+        }
       })
       .catch(function (error) {
-        swal({
-          text: "There Was an Error 🤔",
-          button: "Try Again",
-        });
+        console.log(error);
       });
+
     reset();
   };
 
@@ -180,6 +207,8 @@ function AddPage() {
         }
       )
       .then((response) => {
+        console.log(response.data?.data);
+        dispatch(addAProduct(response?.data?.data));
         swal({
           title: "Thanks !",
           text: "Product Added Successfully😃!",

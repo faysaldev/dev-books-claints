@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Avatar, Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { editeSingleProduct } from "../../features/appSlice";
+import { editeSingleProduct, removeAProduct } from "../../features/appSlice";
 import swal from "sweetalert";
 import axios from "axios";
 
@@ -47,6 +47,7 @@ function AdminSingleProduct({
         axios
           .delete(`http://localhost:5000/dev/product/delete/${_id}`)
           .then((response) => {
+            dispatch(removeAProduct({ _id }));
             swal("Poof! Your Product has been deleted!", {
               icon: "success",
             });
