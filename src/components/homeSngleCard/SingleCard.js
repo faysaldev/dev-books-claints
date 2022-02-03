@@ -56,7 +56,7 @@ function SingleCard({
       <div
         className="bg-gray-200 rounded-md mx-auto"
         onClick={productClick}
-        style={{ maxWidth: "310px" }}
+        style={{ maxWidth: "250px" }}
       >
         <img
           src={image ? image : "/engineers-day-concept_23-2148628083.jpg"}

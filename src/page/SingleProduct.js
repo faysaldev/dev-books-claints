@@ -119,7 +119,10 @@ function SingleProduct() {
         {/* left */}
         <div className="pr-10 pl-10 border-r">
           {/* left top */}
-          <div style={{ maxWidth: "400px" }} className="w-full mx-auto">
+          <div
+            style={{ maxWidth: "400px", maxHeight: "350px" }}
+            className="w-full mx-auto"
+          >
             <img
               src={
                 selectSingleData
@@ -127,6 +130,7 @@ function SingleProduct() {
                   : "/engineers-day-concept_23-2148628083.jpg"
               }
               className="w-full object-contain"
+              style={{ maxHeight: "350px" }}
             />
           </div>
         </div>

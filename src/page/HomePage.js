@@ -99,7 +99,7 @@ function HomePage() {
         .post(
           "http://localhost:5000/dev/user/getemail",
           {
-            email: "fmridha166@gmail.com",
+            email: localStorageUser,
           },
           {
             headers: {
@@ -108,7 +108,7 @@ function HomePage() {
           }
         )
         .then(function (response) {
-          dispatch(loginUser(response?.data[0]));
+          dispatch(loginUser(response?.data));
         })
         .catch(function (error) {
           console.log(error);
@@ -189,7 +189,19 @@ function HomePage() {
                   )}
                 </>
               ) : (
-                <h1>There was no product</h1>
+                <div className="pt-10 col-span-3 place-items-center place-content-center text-center">
+                  <div className="flex items-center justify-center flex-col space-y-8">
+                    <img
+                      src="/notfound.svg"
+                      className="object-contain"
+                      style={{ width: "500px" }}
+                      alt=""
+                    />
+                    <h1 className="text-2xl font-semibold">
+                      There was no product 🤨
+                    </h1>
+                  </div>
+                </div>
               )}
             </div>
           )}
