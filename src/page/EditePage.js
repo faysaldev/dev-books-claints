@@ -88,6 +88,7 @@ function EditePage() {
         }
       )
       .then((response) => {
+        console.log(response.data);
         swal({
           title: "Thanks !",
           text: "Product Updated Successfully😃!",

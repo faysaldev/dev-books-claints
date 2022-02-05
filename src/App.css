@@ -5,3 +5,19 @@
 .UserScreen #scrollbarHide {
   max-height: 700px;
 }
+
+.animationSidebar {
+  animation: FadeInLeft 0.7s;
+}
+
+@keyframes FadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}

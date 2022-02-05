@@ -23,6 +23,7 @@ import { selectUser } from "../features/userSlice";
 import swal from "sweetalert";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import SemilarProduct from "../components/SingleProductPage/SemilarProduct";
+import Zoom from "react-img-zoom";
 
 function SingleProduct() {
   const dispatch = useDispatch();
@@ -121,14 +122,27 @@ function SingleProduct() {
           {/* left top */}
           <div
             style={{ maxWidth: "400px", maxHeight: "350px" }}
-            className="w-full mx-auto"
+            className="w-full mx-auto hoverImage"
           >
-            <img
+            {/* <img
               src={
                 selectSingleData
                   ? selectSingleData?.image
                   : "/engineers-day-concept_23-2148628083.jpg"
               }
+              className="w-full object-contain"
+              style={{ maxHeight: "350px" }}
+            /> */}
+
+            <Zoom
+              img={
+                selectSingleData
+                  ? selectSingleData?.image
+                  : "/engineers-day-concept_23-2148628083.jpg"
+              }
+              zoomScale={3}
+              width={400}
+              height={350}
               className="w-full object-contain"
               style={{ maxHeight: "350px" }}
             />

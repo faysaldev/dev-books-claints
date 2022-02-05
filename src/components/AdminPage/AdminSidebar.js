@@ -68,6 +68,7 @@ function AdminSidebar({ dark, setDark }) {
             className="font-semibold hidden md:flex"
             onClick={() => {
               dispatch(logoutUser());
+              localStorage.removeItem("user");
               history.replace("/");
             }}
           >

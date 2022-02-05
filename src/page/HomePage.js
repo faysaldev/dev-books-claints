@@ -23,6 +23,9 @@ function HomePage() {
 
   const [allProduct, setAllProduct] = useState(allP);
 
+  // TODO: FOR PAGINATION
+  const [loadmore, setLoadMore] = useState(false);
+
   // TODO:slect the user
   const selectU = useSelector(selectUser);
 
@@ -160,32 +163,68 @@ function HomePage() {
             <div className="pt-10 sm:pt-16 sm:px-6 grid sm:grid-cols-2 md:grid-cols-3 sm:gap-x-6 gap-y-8">
               {allProduct.length >= 1 ? (
                 <>
-                  {allProduct?.map(
-                    ({
-                      _id,
-                      image,
-                      price,
-                      title,
-                      details,
-                      category,
-                      username,
-                      userImg,
-                      createdAt,
-                      updatedAt,
-                    }) => (
-                      <SingleCard
-                        _id={_id}
-                        title={title}
-                        price={price}
-                        category={category}
-                        details={details}
-                        image={image}
-                        username={username}
-                        userImg={userImg}
-                        createdAt={createdAt}
-                        updatedAt={updatedAt}
-                      />
-                    )
+                  {allProduct
+                    ?.slice(0, 6)
+                    .map(
+                      ({
+                        _id,
+                        image,
+                        price,
+                        title,
+                        details,
+                        category,
+                        username,
+                        userImg,
+                        createdAt,
+                        updatedAt,
+                      }) => (
+                        <SingleCard
+                          _id={_id}
+                          title={title}
+                          price={price}
+                          category={category}
+                          details={details}
+                          image={image}
+                          username={username}
+                          userImg={userImg}
+                          createdAt={createdAt}
+                          updatedAt={updatedAt}
+                        />
+                      )
+                    )}
+
+                  {loadmore && (
+                    <>
+                      {allProduct
+                        ?.slice(6)
+                        .map(
+                          ({
+                            _id,
+                            image,
+                            price,
+                            title,
+                            details,
+                            category,
+                            username,
+                            userImg,
+                            createdAt,
+                            updatedAt,
+                          }) => (
+                            <SingleCard
+                              _id={_id}
+                              title={title}
+                              price={price}
+                              category={category}
+                              details={details}
+                              image={image}
+                              username={username}
+                              userImg={userImg}
+                              createdAt={createdAt}
+                              updatedAt={updatedAt}
+                            />
+                          )
+                        )}
+                    </>
                   )}
                 </>
               ) : (
@@ -204,6 +243,21 @@ function HomePage() {
                 </div>
               )}
             </div>
+          )}
+
+          {allProduct.length >= 1 && (
+            <>
+              {!loadmore && (
+                <div className="pt-10 w-52 mx-auto cursor-pointer text-center">
+                  <p
+                    onClick={() => setLoadMore(true)}
+                    className=" px-3 py-2 bg-pink-500 rounded-md shadow text-white"
+                  >
+                    Load More...
+                  </p>
+                </div>
+              )}
+            </>
           )}
 
           {/* fotter content */}
