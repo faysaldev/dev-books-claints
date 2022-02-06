@@ -58,20 +58,6 @@ function LoginPage() {
   let [loading, setLoading] = useState(false);
   let [color, setColor] = useState("#ffffff");
 
-  // ! user image uploaded handler
-  // user photo image handler
-  // const UserimageHandler = (e) => {
-  //   e.preventDefault();
-  //   const uplodedUserImage = e.target.files[0];
-  //   console.log(uplodedUserImage);
-
-  //   if (uplodedUserImage == "" || uplodedUserImage === undefined) {
-  //     alert(`not an image, file is a${uplodedUserImage.type}`);
-  //   } else {
-  //     setUserPhoto(uplodedUserImage);
-  //   }
-  // };
-
   // chek the all the input have fillup or not
   const fillUpInput = name && email && password;
 
@@ -90,7 +76,6 @@ function LoginPage() {
         }
       )
       .then(function (response) {
-        console.log(response.data);
         if (response?.data) {
           swal({
             text: "This Email Was Already Exiest",
@@ -105,7 +90,6 @@ function LoginPage() {
               role: "user",
             })
             .then(function (response) {
-              console.log(response?.data);
               localStorage.setItem("user", response?.data.email);
               dispatch(loginUser(response?.data));
               response?.data?.email && history.replace("/");
@@ -140,7 +124,6 @@ function LoginPage() {
       )
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response.data);
           localStorage.setItem("user", response?.data.email);
           dispatch(loginUser(response?.data));
 
@@ -173,8 +156,6 @@ function LoginPage() {
         console.log(error);
       });
   };
-
-  // console.log(userPhoto);
 
   return (
     <div

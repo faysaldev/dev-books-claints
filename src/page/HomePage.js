@@ -179,6 +179,7 @@ function HomePage() {
                         updatedAt,
                       }) => (
                         <SingleCard
+                          key={_id}
                           _id={_id}
                           title={title}
                           price={price}
@@ -211,6 +212,7 @@ function HomePage() {
                             updatedAt,
                           }) => (
                             <SingleCard
+                              key={_id}
                               _id={_id}
                               title={title}
                               price={price}
@@ -245,7 +247,7 @@ function HomePage() {
             </div>
           )}
 
-          {allProduct.length >= 1 && (
+          {allProduct.length >= 1 && !loading && (
             <>
               {!loadmore && (
                 <div className="pt-10 w-52 mx-auto cursor-pointer text-center">

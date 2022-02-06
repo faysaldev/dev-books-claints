@@ -16,11 +16,15 @@ import EditePage from "./page/EditePage";
 import AddPage from "./page/AddPage";
 import UserPage from "./page/UserPage";
 import BoomarkPage from "./page/BoomarkPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // todo for import the user slice
 import { loginUser, logoutUser, selectUser } from "./features/userSlice";
 import { selectAll, addAllProduct } from "./features/appSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import SucessPage from "./page/SucessPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,49 +33,67 @@ function App() {
   const history = useHistory();
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/admin-panel">
-          <AdminPage />
-        </Route>
+    <>
+      <Router>
+        <Switch>
+          <Route exact path="/admin-panel">
+            <AdminPage />
+          </Route>
 
-        <Route exact path="/login">
-          <LoginPage />
-        </Route>
+          <Route exact path="/login">
+            <LoginPage />
+          </Route>
 
-        <Route exact path="/single/:id">
-          <SingleProduct />
-        </Route>
+          <Route exact path="/single/:id">
+            <SingleProduct />
+          </Route>
 
-        <Route exact path="/orders">
-          <OrderPage />
-        </Route>
+          <Route exact path="/orders">
+            <OrderPage />
+          </Route>
 
-        <Route exact path="/bookmark">
-          <BoomarkPage />
-        </Route>
+          <Route exact path="/bookmark">
+            <BoomarkPage />
+          </Route>
 
-        <Route exact path="/admin-all-product">
-          <AllProduct />
-        </Route>
+          <Route exact path="/admin-all-product">
+            <AllProduct />
+          </Route>
 
-        <Route exact path="/admin-edite-page">
-          <EditePage />
-        </Route>
+          <Route exact path="/admin-edite-page">
+            <EditePage />
+          </Route>
 
-        <Route exact path="/admin-add-page">
-          <AddPage />
-        </Route>
+          <Route exact path="/admin-add-page">
+            <AddPage />
+          </Route>
 
-        <Route exact path="/admin-user-page">
-          <UserPage />
-        </Route>
+          <Route exact path="/admin-user-page">
+            <UserPage />
+          </Route>
 
-        <Route exact path="/">
-          <HomePage />
-        </Route>
-      </Switch>
-    </Router>
+          <Route exact path="/payment-succes">
+            <SucessPage />
+          </Route>
+
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+        </Switch>
+      </Router>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </>
   );
 }
 

@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { prevSingleProduct, selectSingle } from "../../features/appSlice";
 import { useHistory } from "react-router-dom";
 import { selectUser } from "../../features/userSlice";
+import Zoom from "react-reveal/Zoom";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 
 function SingleCard({
   _id,
@@ -22,9 +25,44 @@ function SingleCard({
   const history = useHistory();
   const userData = useSelector(selectUser);
 
-  const buyNow = () => {
+  const buyNow = async () => {
     if (userData) {
-      return;
+      // make data to a array
+      const checkoutData = [
+        {
+          _id,
+          image,
+          price,
+          title,
+          details,
+          category,
+          username,
+          userImg,
+          createdAt,
+          updatedAt,
+          quantity: 1,
+        },
+      ];
+
+      const stripe = await loadStripe(
+        "pk_test_51KQ8r2BwFGSf6ilgNWYyT4XeYLkwvyIgsnMFdSa5aTAl1uCY00PvCl4BvlD9rU3vHqTUcWhMjSnTnKo81bLv6ltg00GOoo8vRr"
+      );
+
+      const checkoutSession = axios.post(
+        "http://localhost:5000/create-checkout-session",
+        {
+          items: checkoutData,
+          email: userData.email,
+        },
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      const result = await stripe.redirectToCheckout({
+        sessionId: (await checkoutSession).data.id,
+      });
+
+      if (result.error) alert(result.error.message);
+      // alert("yo");
     } else {
       history.push("/login");
     }
@@ -49,41 +87,46 @@ function SingleCard({
   };
 
   return (
-    <div
-      key={_id}
-      className="shadow-md hover:shadow-xl cursor-pointer px-4 py-6 w-full"
-    >
+    <Zoom>
       <div
-        className="bg-gray-200 rounded-md mx-auto"
-        onClick={productClick}
-        style={{ maxWidth: "250px" }}
+        key={_id}
+        className="shadow-md hover:shadow-xl cursor-pointer px-4 py-6 w-full"
       >
-        <img
-          src={image ? image : "/engineers-day-concept_23-2148628083.jpg"}
-          alt={image}
-          style={{ maxHeight: "330px" }}
-          className="px-2 py-2 object-contain w-full h-full rounded-md"
-        />
-      </div>
-      {/* card top */}
-
-      <div className="text-lg md:text-3xl font-semibold py-4">
-        <h2>{title}</h2>
-      </div>
-
-      <div className="flex items-center justify-between px-3 py-3">
-        <h3 className="text-4xl font-bold text-blue-500 hidden lg:flex">
-          ${price}
-        </h3>
-        <button
-          className="px-6 py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-400 transition"
-          onClick={buyNow}
+        <div
+          className="bg-gray-200 rounded-md mx-auto"
+          onClick={productClick}
+          style={{ maxWidth: "250px" }}
         >
-          Buy Now
-        </button>
+          <img
+            src={image ? image : "/engineers-day-concept_23-2148628083.jpg"}
+            alt={image}
+            style={{ maxHeight: "330px" }}
+            className="px-2 py-2 object-contain w-full h-full rounded-md"
+          />
+        </div>
+        {/* card top */}
+
+        <div
+          onClick={productClick}
+          className="text-base md:text-2xl font-semibold py-4"
+        >
+          <h2>{title}</h2>
+        </div>
+
+        <div className="flex items-center justify-between px-3 py-3">
+          <h3 className="text-4xl font-bold text-blue-500 hidden lg:flex">
+            ${price}
+          </h3>
+          <button
+            className="px-6 py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-400 transition"
+            onClick={buyNow}
+          >
+            Buy Now
+          </button>
+        </div>
+        {/* card bottom */}
       </div>
-      {/* card bottom */}
-    </div>
+    </Zoom>
   );
 }
 

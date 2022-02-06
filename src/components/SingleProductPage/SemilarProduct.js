@@ -32,6 +32,7 @@ function SemilarProduct({ category, _id }) {
               updatedAt,
             }) => (
               <SingleCard
+                key={_id}
                 _id={_id}
                 title={title}
                 price={price}

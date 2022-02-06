@@ -6,12 +6,38 @@ import { useSelector } from "react-redux";
 import { selectCartAll, selectTotal } from "../features/appSlice";
 import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+import { selectUser } from "../features/userSlice";
 
 function OrderPage() {
   const cardProduct = useSelector(selectCartAll);
   const Total = useSelector(selectTotal);
+  const selectU = useSelector(selectUser);
 
   const history = useHistory();
+
+  const createCheackoutSession = async () => {
+    const stripe = await loadStripe(
+      "pk_test_51KQ8r2BwFGSf6ilgNWYyT4XeYLkwvyIgsnMFdSa5aTAl1uCY00PvCl4BvlD9rU3vHqTUcWhMjSnTnKo81bLv6ltg00GOoo8vRr"
+    );
+
+    const checkoutSession = axios.post(
+      "http://localhost:5000/create-checkout-session",
+      {
+        items: cardProduct,
+        email: selectU.email,
+      },
+      { headers: { "Content-Type": "application/json" } }
+    );
+
+    const result = await stripe.redirectToCheckout({
+      sessionId: (await checkoutSession).data.id,
+    });
+
+    if (result.error) alert(result.error.message);
+    // alert("yo");
+  };
 
   return (
     <div className="orderScreen">
@@ -118,6 +144,7 @@ function OrderPage() {
                     color="primary"
                     style={{ textTransform: "capitalize" }}
                     fullWidth
+                    onClick={createCheackoutSession}
                   >
                     Processed to payment
                   </Button>

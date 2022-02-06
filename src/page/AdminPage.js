@@ -141,6 +141,7 @@ function AdminPage() {
                     {Data?.map(
                       ({ id, image, username, payment, time, type, total }) => (
                         <OrderLIstCard
+                          key={id}
                           id={id}
                           image={image}
                           username={username}

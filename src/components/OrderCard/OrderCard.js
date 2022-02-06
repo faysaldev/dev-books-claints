@@ -11,6 +11,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
 
+import LightSpeed from "react-reveal/LightSpeed";
+import { toast } from "react-toastify";
+
 function OrderCard({
   _id,
   image,
@@ -27,11 +30,15 @@ function OrderCard({
     dispatch(
       allCart({ _id, image, price: Number(price), title, details, category })
     );
-    swal({
-      title: "Added!",
-      text: "This Product Added to the Card 😎!",
-      icon: "success",
-      button: "Ok!",
+    toast.success("This Product Added to the Card 😎!", {
+      icon: "🚀",
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
   };
   const removeFormCart = () => {
@@ -47,50 +54,56 @@ function OrderCard({
     }
   };
   return (
-    <div className="flex items-center space-x-4 border shadow-md rounded-md px-4 py-3">
-      <div className="mx-0 sm:mx-6  w-24">
-        <img src={image} alt="" className="w-full object-contain rounded-md" />
-      </div>
-      {/* right content */}
-      <div className="flex-grow flex-col flex space-y-8">
-        <a href="https://www.facebook.com/faysaldev" className="text-base">
-          {title}
-        </a>
-        {/* another div */}
-        <div className="flex items-center justify-between">
-          <p className="font-semibold text-base">${price}</p>
-          {/* another one */}
-          <div className="flex items-center space-x-4">
-            {/* quantify */}
+    <LightSpeed left className="col-span-2">
+      <div className="flex items-center space-x-4 border shadow-md rounded-md px-4 py-3">
+        <div className="mx-0 sm:mx-6  w-24">
+          <img
+            src={image}
+            alt=""
+            className="w-full object-contain rounded-md"
+          />
+        </div>
+        {/* right content */}
+        <div className="flex-grow flex-col flex space-y-8">
+          <a href="https://www.facebook.com/faysaldev" className="text-base">
+            {title}
+          </a>
+          {/* another div */}
+          <div className="flex items-center justify-between">
+            <p className="font-semibold text-base">${price}</p>
+            {/* another one */}
+            <div className="flex items-center space-x-4">
+              {/* quantify */}
 
-            <div className="flex items-center space-x-3">
-              <button
-                onClick={removeFormCart}
-                className="px-3 text-center font-bold py-1 bg-gray-200 rounded-md text-black"
+              <div className="flex items-center space-x-3">
+                <button
+                  onClick={removeFormCart}
+                  className="px-3 text-center font-bold py-1 bg-gray-200 rounded-md text-black"
+                >
+                  -
+                </button>
+                <span>{quantity}</span>
+                <button
+                  onClick={AddTocart}
+                  className="px-3 text-center font-bold py-1 bg-gray-200 rounded-md text-black"
+                >
+                  +
+                </button>
+              </div>
+              {/* remove from card */}
+              <div
+                className="text-white bg-red-600 px-2 rounded-md shadow cursor-pointer py-1"
+                onClick={() => dispatch(removeAFromCart({ _id }))}
               >
-                -
-              </button>
-              <span>{quantity}</span>
-              <button
-                onClick={AddTocart}
-                className="px-3 text-center font-bold py-1 bg-gray-200 rounded-md text-black"
-              >
-                +
-              </button>
-            </div>
-            {/* remove from card */}
-            <div
-              className="text-white bg-red-600 px-2 rounded-md shadow cursor-pointer py-1"
-              onClick={() => dispatch(removeAFromCart({ _id }))}
-            >
-              <Tooltip title="Remove from Cart" arrow>
-                <RemoveShoppingCartIcon />
-              </Tooltip>
+                <Tooltip title="Remove from Cart" arrow>
+                  <RemoveShoppingCartIcon />
+                </Tooltip>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </LightSpeed>
   );
 }
 

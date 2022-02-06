@@ -25,8 +25,6 @@ function EditePage() {
   const [img, setImg] = useState(EditeProductData?.img);
   const [details, setDetails] = useState("");
 
-  console.log(EditeProductData);
-
   useEffect(() => {
     if (!EditeProductData) {
       return history.replace("/admin-all-product");

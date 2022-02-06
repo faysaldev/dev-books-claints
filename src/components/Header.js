@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser, selectUser } from "../features/userSlice";
 import { Avatar } from "@material-ui/core";
 import MobileMenubar from "./AdminPage/MobileMenu";
+import Flip from "react-reveal/Flip";
 
 function Header({ adminMobile }) {
   const [menu, setMenu] = useState(false);
@@ -77,44 +78,46 @@ function Header({ adminMobile }) {
 
         {/* moile menu */}
         {menu && (
-          <div className="mobile_menu w-full md:hidden block">
-            <ul>
-              {!itsHome && (
+          <Flip top>
+            <div className="mobile_menu w-full md:hidden block">
+              <ul>
+                {!itsHome && (
+                  <li className="px-3 py-2 font-semibold border-b border-gray-200">
+                    <Link to="/">Home</Link>
+                  </li>
+                )}
                 <li className="px-3 py-2 font-semibold border-b border-gray-200">
-                  <Link to="/">Home</Link>
+                  <Link to="/orders">Orders</Link>
                 </li>
-              )}
-              <li className="px-3 py-2 font-semibold border-b border-gray-200">
-                <Link to="/orders">Orders</Link>
-              </li>
-              <li className="px-3 py-2 font-semibold border-b border-gray-200">
-                <Link to="/bookmark">Bookmark</Link>
-              </li>
-              <li className="px-3 py-2 font-semibold border-b border-gray-200">
-                <Link to="/admin-panel">Admin</Link>
-              </li>
-            </ul>
+                <li className="px-3 py-2 font-semibold border-b border-gray-200">
+                  <Link to="/bookmark">Bookmark</Link>
+                </li>
+                <li className="px-3 py-2 font-semibold border-b border-gray-200">
+                  <Link to="/admin-panel">Admin</Link>
+                </li>
+              </ul>
 
-            <div className="flex items-center justify-center py-6">
-              {userData ? (
-                <Avatar
-                  className="cursor-pointer"
-                  onClick={LogoutUser}
-                  src={userData?.photoURL}
-                />
-              ) : (
-                <li>
-                  <Link
-                    to="/login"
-                    className="text-center px-6 bg-gradient-to-r from-blue-500 to-purple-500 cursor-pointer text-white w-2/3
+              <div className="flex items-center justify-center py-6">
+                {userData ? (
+                  <Avatar
+                    className="cursor-pointer"
+                    onClick={LogoutUser}
+                    src={userData?.photoURL}
+                  />
+                ) : (
+                  <li>
+                    <Link
+                      to="/login"
+                      className="text-center px-6 bg-gradient-to-r from-blue-500 to-purple-500 cursor-pointer text-white w-2/3
                         py-3 rounded-md shadow-sm font-semibold uppercase"
-                  >
-                    Login
-                  </Link>
-                </li>
-              )}
+                    >
+                      Login
+                    </Link>
+                  </li>
+                )}
+              </div>
             </div>
-          </div>
+          </Flip>
         )}
       </header>
     </>

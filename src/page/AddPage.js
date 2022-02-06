@@ -35,32 +35,6 @@ function AddPage() {
   // dispatch
   const dispatch = useDispatch();
 
-  //   // image handler
-  //   const imageHandler = (e) => {
-  //     e.preventDefault();
-  //     const uploadImage = e.target.files[0];
-  //     console.log(uploadImage);
-
-  //     if (uploadImage == "" || uploadImage === undefined) {
-  //       alert(`not an image, file is a${uploadImage.type}`);
-  //     } else {
-  //       setImg(uploadImage);
-  //     }
-  //   };
-
-  //   // user photo image handler
-  //   const UserimageHandler = (e) => {
-  //     e.preventDefault();
-  //     const uplodedUserImage = e.target.files[0];
-  //     console.log(uplodedUserImage);
-
-  //     if (uplodedUserImage == "" || uplodedUserImage === undefined) {
-  //       alert(`not an image, file is a${uplodedUserImage.type}`);
-  //     } else {
-  //       setUserPhoto(uplodedUserImage);
-  //     }
-  //   };
-
   const reset = () => {
     setName("");
     setEmail("");
@@ -129,7 +103,6 @@ function AddPage() {
         }
       )
       .then(function (response) {
-        console.log(response.data);
         if (response?.data) {
           swal({
             text: "This Email Was Already Exiest",
@@ -207,7 +180,6 @@ function AddPage() {
         }
       )
       .then((response) => {
-        console.log(response.data?.data);
         dispatch(addAProduct(response?.data?.data));
         swal({
           title: "Thanks !",

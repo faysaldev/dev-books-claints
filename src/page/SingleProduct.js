@@ -24,6 +24,7 @@ import swal from "sweetalert";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import SemilarProduct from "../components/SingleProductPage/SemilarProduct";
 import Zoom from "react-img-zoom";
+import { toast } from "react-toastify";
 
 function SingleProduct() {
   const dispatch = useDispatch();
@@ -38,7 +39,10 @@ function SingleProduct() {
   const cartAll = useSelector(selectCartAll);
   const bookmarkAll = useSelector(selectAllBookmark);
 
-  console.log(cartAll);
+  // TODO: click to hover image
+
+  const [hoverZoom, setHoverZoom] = useState(false);
+
   const alreadyCart = cartAll.find(
     (cart) => cart._id === selectSingleData?._id
   );
@@ -46,12 +50,9 @@ function SingleProduct() {
     (bookmark) => bookmark._id === selectSingleData?._id
   );
 
-  console.log(alreadyCart);
-  console.log(isBookmark);
-
   const colorPalet = ["yellow", "green", "gray", "red", "blue"];
 
-  const [colours, setColours] = useState("text-gray-300");
+  const [colours, setColours] = useState("text-yellow-300");
 
   const addToCart = () => {
     if (selectSingleData) {
@@ -67,14 +68,17 @@ function SingleProduct() {
           quantity: 1,
         })
       );
-      swal({
-        title: "Added!",
-        text: "This Product Added to the Card 😎!",
-        icon: "success",
-        button: "Ok!",
-      });
 
-      history.push("/orders");
+      toast.success("This Product Added to the Card 😎!", {
+        icon: "🚀",
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -104,13 +108,19 @@ function SingleProduct() {
     }
   };
 
+  const gotoOUrderPage = () => {
+    history.push("/orders");
+  };
+
   useEffect(() => {
     if (!selectSingleData) {
       return history.replace("/");
     }
-
-    // return ()=>{ dispatch(deleteSingleProduct()) }
   }, []);
+
+  // return () => {
+  //   dispatch(deleteSingleProduct());
+  // };
 
   return (
     <div>
@@ -122,30 +132,34 @@ function SingleProduct() {
           {/* left top */}
           <div
             style={{ maxWidth: "400px", maxHeight: "350px" }}
-            className="w-full mx-auto hoverImage"
+            className="w-full mx-auto hoverImage object-contain"
           >
-            {/* <img
-              src={
-                selectSingleData
-                  ? selectSingleData?.image
-                  : "/engineers-day-concept_23-2148628083.jpg"
-              }
-              className="w-full object-contain"
-              style={{ maxHeight: "350px" }}
-            /> */}
-
-            <Zoom
-              img={
-                selectSingleData
-                  ? selectSingleData?.image
-                  : "/engineers-day-concept_23-2148628083.jpg"
-              }
-              zoomScale={3}
-              width={400}
-              height={350}
-              className="w-full object-contain"
-              style={{ maxHeight: "350px" }}
-            />
+            {hoverZoom ? (
+              <Zoom
+                onPress={() => alert("yo")}
+                img={
+                  selectSingleData
+                    ? selectSingleData?.image
+                    : "/engineers-day-concept_23-2148628083.jpg"
+                }
+                zoomScale={3}
+                width={350}
+                height={350}
+                className="w-full object-contain"
+                style={{ maxHeight: "350px", objectFit: "contain" }}
+              />
+            ) : (
+              <img
+                onClick={() => setHoverZoom(true)}
+                src={
+                  selectSingleData
+                    ? selectSingleData?.image
+                    : "/engineers-day-concept_23-2148628083.jpg"
+                }
+                className="w-full object-contain"
+                style={{ maxHeight: "350px" }}
+              />
+            )}
           </div>
         </div>
 
@@ -191,6 +205,7 @@ function SingleProduct() {
             <div className="md:space-x-3 pt-10 pb-6">
               {colorPalet?.map((color) => (
                 <span
+                  key={color}
                   onClick={() => setColours("text-" + color + "-400")}
                   className={`${
                     "text-" + color + "-400 bg-" + color + "-50"
@@ -203,9 +218,9 @@ function SingleProduct() {
           </div>
 
           {/* button */}
-          <div className="md:space-x-4 pb-4">
+          <div className="space-x-3 md:space-x-4 pb-4">
             <button
-              onClick={addToCart}
+              onClick={alreadyCart ? gotoOUrderPage : addToCart}
               className="px-10 border text-center text-md font-semibold rounded-md bg-black text-white py-3 hover:bg-red-300 hover:text-black focus:bg-green-500"
             >
               {alreadyCart ? (
