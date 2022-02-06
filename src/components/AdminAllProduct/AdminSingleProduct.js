@@ -45,7 +45,9 @@ function AdminSingleProduct({
     }).then((willDelete) => {
       if (willDelete) {
         axios
-          .delete(`http://localhost:5000/dev/product/delete/${_id}`)
+          .delete(
+            `https://murmuring-woodland-93721.herokuapp.com/dev/product/delete/${_id}`
+          )
           .then((response) => {
             dispatch(removeAProduct({ _id }));
             swal("Poof! Your Product has been deleted!", {

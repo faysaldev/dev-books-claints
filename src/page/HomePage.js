@@ -73,7 +73,7 @@ function HomePage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/dev/product/all")
+      .get("https://murmuring-woodland-93721.herokuapp.com/dev/product/all")
       .then(function (response) {
         dispatch(addAllProduct(response?.data?.data));
       })
@@ -85,7 +85,7 @@ function HomePage() {
   // todo get all user from the api
   useEffect(() => {
     axios
-      .get("http://localhost:5000/dev/user/all")
+      .get("https://murmuring-woodland-93721.herokuapp.com/dev/user/all")
       .then(function (response) {
         dispatch(addUser(response?.data.data));
       })
@@ -100,7 +100,7 @@ function HomePage() {
     if (localStorageUser) {
       axios
         .post(
-          "http://localhost:5000/dev/user/getemail",
+          "https://murmuring-woodland-93721.herokuapp.com/dev/user/getemail",
           {
             email: localStorageUser,
           },
@@ -119,7 +119,7 @@ function HomePage() {
     } else {
       dispatch(logoutUser());
     }
-  }, [selectU]);
+  }, []);
 
   return (
     <div className="homeScreen">

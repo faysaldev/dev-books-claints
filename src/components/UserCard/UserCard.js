@@ -27,7 +27,9 @@ function UserCard({ _id, username, avatar, email, password, role }) {
     }).then((willDelete) => {
       if (willDelete) {
         axios
-          .delete(`http://localhost:5000/dev/user/delete/${_id}`)
+          .delete(
+            `https://murmuring-woodland-93721.herokuapp.com/dev/user/delete/${_id}`
+          )
           .then((response) => {
             dispatch(removeAUser({ _id }));
             swal("Poof! Your User has been deleted!", {

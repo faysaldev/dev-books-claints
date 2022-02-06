@@ -71,7 +71,7 @@ function EditePage() {
     console.log(EditeProductData?._id);
     axios
       .patch(
-        `http://localhost:5000/dev/product/update/${EditeProductData?._id}`,
+        `https://murmuring-woodland-93721.herokuapp.com/dev/product/update/${EditeProductData?._id}`,
         {
           title: productName,
           category: category,

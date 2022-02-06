@@ -36,7 +36,7 @@ function UserPage() {
   const UpdateUserData = () => {
     axios
       .patch(
-        `http://localhost:5000/dev/user/update/${editeUserData?._id}`,
+        `https://murmuring-woodland-93721.herokuapp.com/dev/user/update/${editeUserData?._id}`,
         {
           name: name,
           email: email,

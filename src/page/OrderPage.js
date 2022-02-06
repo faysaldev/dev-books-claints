@@ -23,7 +23,7 @@ function OrderPage() {
     );
 
     const checkoutSession = axios.post(
-      "http://localhost:5000/create-checkout-session",
+      "https://murmuring-woodland-93721.herokuapp.com/create-checkout-session",
       {
         items: cardProduct,
         email: selectU.email,

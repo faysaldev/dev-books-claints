@@ -92,7 +92,7 @@ function AddPage() {
 
     axios
       .post(
-        "http://localhost:5000/dev/user/login",
+        "https://murmuring-woodland-93721.herokuapp.com/dev/user/login",
         {
           email: email,
         },
@@ -109,11 +109,15 @@ function AddPage() {
           });
         } else {
           axios
-            .post("http://localhost:5000/dev/user/post", userInfo, {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            })
+            .post(
+              "https://murmuring-woodland-93721.herokuapp.com/dev/user/post",
+              userInfo,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            )
             .then(function (response) {
               dispatch(addANewUser(response?.data));
               swal({
@@ -162,7 +166,7 @@ function AddPage() {
 
     axios
       .post(
-        `http://localhost:5000/dev/product/post`,
+        `https://murmuring-woodland-93721.herokuapp.com/dev/product/post`,
         {
           image: img,
           price: addPrice,
