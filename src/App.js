@@ -18,6 +18,7 @@ import UserPage from "./page/UserPage";
 import BoomarkPage from "./page/BoomarkPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { css } from "@emotion/react";
 
 // todo for import the user slice
 import { loginUser, logoutUser, selectUser } from "./features/userSlice";
@@ -25,12 +26,33 @@ import { selectAll, addAllProduct } from "./features/appSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import SucessPage from "./page/SucessPage";
+import GridLoader from "react-spinners/GridLoader";
 
 function App() {
   const dispatch = useDispatch();
   const selectU = useSelector(selectUser);
   const selectAllProduct = useSelector(selectAll);
   const history = useHistory();
+
+  // TODO: for preloader
+  const [preloader, setPreloader] = useState(true);
+  const override = css`
+    display: block;
+    margin: 0 auto;
+  `;
+
+  // let [loading, setLoading] = useState(true);
+  let [color, setColor] = useState("#ffffff");
+
+  const windowload = window.addEventListener("load", () => {
+    setPreloader(false);
+  });
+
+  // useEffect(() => {
+  //   window.onload = function () {
+  //     setPreloader(false);
+  //   };
+  // }, []);
 
   return (
     <>
@@ -93,6 +115,20 @@ function App() {
         draggable
         pauseOnHover
       />
+
+      {preloader && (
+        <div
+          className="fixed top-0 left-0 w-full h-full preloaderHomePage flex items-center justify-center"
+          style={{ background: "rgba(0,0,0,0.9)" }}
+        >
+          <GridLoader
+            color={color}
+            loading={preloader}
+            css={override}
+            size={30}
+          />
+        </div>
+      )}
     </>
   );
 }

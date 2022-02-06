@@ -76,6 +76,7 @@ function HomePage() {
       .get("https://murmuring-woodland-93721.herokuapp.com/dev/product/all")
       .then(function (response) {
         dispatch(addAllProduct(response?.data?.data));
+        setAllProduct(response.data?.data);
       })
       .catch(function (error) {
         console.log(error);
