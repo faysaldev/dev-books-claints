@@ -121,7 +121,7 @@ function App() {
       {preloader && (
         <div
           className="fixed top-0 left-0 w-full h-full preloaderHomePage flex items-center justify-center"
-          style={{ background: "rgba(0,0,0,0.9)" }}
+          style={{ background: "rgba(0,0,0,1)" }}
         >
           <GridLoader
             color={color}

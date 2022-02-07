@@ -124,7 +124,7 @@ function SingleProduct() {
   // };
 
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <Helmet>
         <meta charSet="utf-8" />
         <title>Single Product View in DebBooks</title>
@@ -149,8 +149,8 @@ function SingleProduct() {
                     : "/engineers-day-concept_23-2148628083.jpg"
                 }
                 zoomScale={3}
-                width={350}
-                height={350}
+                width={300}
+                height={300}
                 className="w-full object-contain"
                 style={{ maxHeight: "350px", objectFit: "contain" }}
               />

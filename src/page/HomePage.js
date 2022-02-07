@@ -73,11 +73,13 @@ function HomePage() {
   const selectAllProduct = useSelector(selectAll);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get("https://murmuring-woodland-93721.herokuapp.com/dev/product/all")
       .then(function (response) {
         dispatch(addAllProduct(response?.data?.data));
         setAllProduct(response.data?.data);
+        setLoading(false);
       })
       .catch(function (error) {
         console.log(error);
@@ -254,7 +256,7 @@ function HomePage() {
             </div>
           )}
 
-          {allProduct.length >= 1 && !loading && (
+          {allProduct.length >= 7 && !loading && (
             <>
               {!loadmore && (
                 <div className="pt-10 w-52 mx-auto cursor-pointer text-center">
