@@ -11,6 +11,7 @@ import { css } from "@emotion/react";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import axios from "axios";
 import swal from "sweetalert";
+import { Helmet } from "react-helmet";
 
 function EditePage() {
   const [dark, setDark] = useState(false);
@@ -115,6 +116,11 @@ function EditePage() {
           backgroundRepeat: "no-repet",
         }}
       >
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Edite Single Page || DebBooks</title>
+        </Helmet>
+
         <div
           className={`flex max-w-6xl pt-4 shadow-md rounded-lg mx-auto ${
             dark ? "bg-black text-white" : "bg-white text-black"

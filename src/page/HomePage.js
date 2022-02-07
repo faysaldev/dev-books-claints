@@ -16,6 +16,7 @@ import {
   logoutUser,
   selectUser,
 } from "../features/userSlice";
+import { Helmet } from "react-helmet";
 
 function HomePage() {
   const [search, setSearch] = useState("");
@@ -124,6 +125,11 @@ function HomePage() {
 
   return (
     <div className="homeScreen">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>DebBooks Home || Create by Faysal</title>
+      </Helmet>
+
       <div>
         {/* header */}
         <Header />

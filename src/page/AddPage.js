@@ -13,6 +13,7 @@ import { css } from "@emotion/react";
 import axios from "axios";
 import PacmanLoader from "react-spinners/ClipLoader";
 import swal from "sweetalert";
+import { Helmet } from "react-helmet";
 
 function AddPage() {
   const userData = useSelector(selectUser);
@@ -215,6 +216,11 @@ function AddPage() {
           backgroundRepeat: "no-repet",
         }}
       >
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Add Page || Product and User</title>
+        </Helmet>
+
         <div
           className={`flex max-w-6xl pt-4 shadow-md rounded-lg mx-auto ${
             dark ? "bg-black text-white" : "bg-white text-black"

@@ -25,6 +25,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import SemilarProduct from "../components/SingleProductPage/SemilarProduct";
 import Zoom from "react-img-zoom";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 function SingleProduct() {
   const dispatch = useDispatch();
@@ -124,6 +125,11 @@ function SingleProduct() {
 
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Single Product View in DebBooks</title>
+      </Helmet>
+
       <Header />
       {/* Single Product Page main */}
       <main className="py-10 grid grid-cols-1 md:grid-cols-2 gap-y-8">

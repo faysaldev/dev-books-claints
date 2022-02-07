@@ -27,6 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import SucessPage from "./page/SucessPage";
 import GridLoader from "react-spinners/GridLoader";
+import ReactGA from "react-ga";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,8 @@ function App() {
     margin: 0 auto;
   `;
 
+  // TODO: G-JNN1E3BF3N
+
   // let [loading, setLoading] = useState(true);
   let [color, setColor] = useState("#ffffff");
 
@@ -48,11 +51,10 @@ function App() {
     setPreloader(false);
   });
 
-  // useEffect(() => {
-  //   window.onload = function () {
-  //     setPreloader(false);
-  //   };
-  // }, []);
+  useEffect(() => {
+    ReactGA.initialize("G-JNN1E3BF3N");
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
 
   return (
     <>

@@ -17,6 +17,7 @@ import { selectAllUSers } from "../features/userSlice";
 import MobileMenubar from "../components/AdminPage/MobileMenu";
 import swal from "sweetalert";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 function UserPage() {
   const [dark, setDark] = useState(false);
@@ -82,6 +83,11 @@ function UserPage() {
           backgroundRepeat: "no-repet",
         }}
       >
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>All Users in DebBooks</title>
+        </Helmet>
+
         <div
           className={`flex max-w-7xl pt-4 shadow-md rounded-lg mx-auto ${
             dark ? "bg-black text-white" : "bg-white text-black"

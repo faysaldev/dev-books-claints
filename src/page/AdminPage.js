@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";
 import { useHistory } from "react-router-dom";
 import MobileMenubar from "../components/AdminPage/MobileMenu";
+import { Helmet } from "react-helmet";
 
 function AdminPage() {
   const [dark, setDark] = useState(false);
@@ -33,6 +34,11 @@ function AdminPage() {
           backgroundRepeat: "no-repet",
         }}
       >
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Admin Page || Create by Faysal</title>
+        </Helmet>
+
         <div
           className={`flex max-w-6xl pt-4 shadow-md rounded-lg mx-auto ${
             dark ? "bg-black" : "bg-white text-black"

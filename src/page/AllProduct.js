@@ -12,6 +12,7 @@ import AdminSingleProduct from "../components/AdminAllProduct/AdminSingleProduct
 import { useSelector } from "react-redux";
 import { selectAll } from "../features/appSlice";
 import MobileMenubar from "../components/AdminPage/MobileMenu";
+import { Helmet } from "react-helmet";
 
 function AllProduct() {
   const [dark, setDark] = useState(false);
@@ -195,6 +196,11 @@ function AllProduct() {
           backgroundRepeat: "no-repet",
         }}
       >
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>All Product || in Devbooks</title>
+        </Helmet>
+
         <div
           className={`flex max-w-6xl pt-4 shadow-md rounded-lg mx-auto ${
             dark ? "bg-black text-white" : "bg-white text-black"

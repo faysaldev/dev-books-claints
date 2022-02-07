@@ -5,12 +5,18 @@ import Fotter from "../components/Fotter";
 import BookMarkCard from "../components/BookmarkPage/BookMarkCard";
 import { useSelector } from "react-redux";
 import { selectAllBookmark } from "../features/appSlice";
+import { Helmet } from "react-helmet";
 
 function BoomarkPage() {
   const history = useHistory();
   const markProduct = useSelector(selectAllBookmark);
   return (
     <div className="bookmarkPage" style={{ background: "#FAFAFA" }}>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Bookmark Page || Create by Faysal</title>
+      </Helmet>
+
       <div>
         {/* Header */}
         <Header />

@@ -19,6 +19,7 @@ import axios from "axios";
 import { css } from "@emotion/react";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import swal from "sweetalert";
+import { Helmet } from "react-helmet";
 
 // firebase login
 
@@ -166,6 +167,11 @@ function LoginPage() {
         dark ? "from-green-300 to-pink-400" : "to-yellow-300 from-purple-400"
       }`}
     >
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Login Page|| DebBooks</title>
+      </Helmet>
+
       <div
         className={`flex max-w-6xl shadow-md rounded-lg mx-auto ${
           dark ? "bg-transparent" : "bg-white backdrop-blur"

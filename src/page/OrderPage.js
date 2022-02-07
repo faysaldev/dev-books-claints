@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { selectUser } from "../features/userSlice";
+import { Helmet } from "react-helmet";
 
 function OrderPage() {
   const cardProduct = useSelector(selectCartAll);
@@ -41,6 +42,11 @@ function OrderPage() {
 
   return (
     <div className="orderScreen">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Cart Page || DevBooks</title>
+      </Helmet>
+
       <div>
         {/* Header */}
         <Header />
