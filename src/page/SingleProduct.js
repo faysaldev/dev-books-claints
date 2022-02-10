@@ -26,6 +26,8 @@ import SemilarProduct from "../components/SingleProductPage/SemilarProduct";
 import Zoom from "react-img-zoom";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet";
+import axios from "axios";
+import Reveal from "react-reveal/Reveal";
 
 function SingleProduct() {
   const dispatch = useDispatch();
@@ -87,23 +89,47 @@ function SingleProduct() {
     if (userData) {
       const { _id, image, price, title, details, category } = selectSingleData;
 
-      dispatch(
-        addToBookMark({
-          _id,
-          image,
-          title,
-          category,
-          price,
-          details,
+      axios
+        .post(
+          `https://murmuring-woodland-93721.herokuapp.com/dev/cart/post`,
+          {
+            image: image,
+            price: price,
+            title: title,
+            details: details,
+            category: category,
+            username: userData?.name,
+            userImg: userData?.photoURL,
+            userEmail: userData?.email,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then(function (response) {
+          dispatch(
+            addToBookMark({
+              _id,
+              image,
+              title,
+              category,
+              price,
+              details,
+            })
+          );
+          swal({
+            title: "BookMark Added!",
+            text: "This Product Added to the BookMark List 😎!",
+            icon: "success",
+            button: "Ok!",
+          });
+          history.push("/bookmark");
         })
-      );
-      swal({
-        title: "BookMark Added!",
-        text: "This Product Added to the BookMark List 😎!",
-        icon: "success",
-        button: "Ok!",
-      });
-      history.push("/bookmark");
+        .catch(function (error) {
+          console.log(error);
+        });
     } else {
       history.push("/login");
     }
@@ -134,121 +160,128 @@ function SingleProduct() {
       {/* Single Product Page main */}
       <main className="py-10 grid grid-cols-1 md:grid-cols-2 gap-y-8">
         {/* left */}
-        <div className="pr-10 pl-10 border-r">
-          {/* left top */}
-          <div
-            style={{ maxWidth: "400px", maxHeight: "350px" }}
-            className="w-full mx-auto hoverImage object-contain"
-          >
-            {hoverZoom ? (
-              <Zoom
-                onPress={() => alert("yo")}
-                img={
-                  selectSingleData
-                    ? selectSingleData?.image
-                    : "/engineers-day-concept_23-2148628083.jpg"
-                }
-                zoomScale={3}
-                width={300}
-                height={300}
-                className="w-full object-contain"
-                style={{ maxHeight: "350px", objectFit: "contain" }}
-              />
-            ) : (
-              <img
-                onClick={() => setHoverZoom(true)}
-                src={
-                  selectSingleData
-                    ? selectSingleData?.image
-                    : "/engineers-day-concept_23-2148628083.jpg"
-                }
-                className="w-full object-contain"
-                style={{ maxHeight: "350px" }}
-              />
-            )}
+
+        <Reveal effect="fadeInUp">
+          <div className="pr-10 pl-10 border-r">
+            {/* left top */}
+            <div
+              style={{ maxWidth: "400px", maxHeight: "350px" }}
+              className="w-full mx-auto hoverImage object-contain"
+            >
+              {hoverZoom ? (
+                <Zoom
+                  onPress={() => alert("yo")}
+                  img={
+                    selectSingleData
+                      ? selectSingleData?.image
+                      : "/engineers-day-concept_23-2148628083.jpg"
+                  }
+                  zoomScale={3}
+                  width={300}
+                  height={300}
+                  className="w-full object-contain"
+                  style={{ maxHeight: "350px", objectFit: "contain" }}
+                />
+              ) : (
+                <img
+                  onClick={() => setHoverZoom(true)}
+                  src={
+                    selectSingleData
+                      ? selectSingleData?.image
+                      : "/engineers-day-concept_23-2148628083.jpg"
+                  }
+                  className="w-full object-contain"
+                  style={{ maxHeight: "350px" }}
+                />
+              )}
+            </div>
           </div>
-        </div>
+        </Reveal>
 
         {/* Right */}
-        <div className="px-10">
-          {/* top information */}
-          <div className={`flex items-center justify-between pb-6 ${colours}`}>
-            <h1 className="text-2xl font-semibold">
-              {selectSingleData?.title}
+        <Reveal effect="fadeInUp">
+          <div className="px-10">
+            {/* top information */}
+            <div
+              className={`flex items-center justify-between pb-6 ${colours}`}
+            >
+              <h1 className="text-2xl font-semibold">
+                {selectSingleData?.title}
+              </h1>
+              <FavoriteBorderIcon className="w-40 p-1 bg-gray-50 rounded-full cursor-pointer" />
+            </div>
+            {/* decription */}
+            <p className="text-xs pb-4 sm:text-md pr-6">
+              {selectSingleData?.details}
+            </p>
+            {/* Price */}
+            <h1
+              className={`${"font-semibold text-xl sm:text-2xl pb-4"} ${colours}`}
+            >
+              $ {selectSingleData?.price}
             </h1>
-            <FavoriteBorderIcon className="w-40 p-1 bg-gray-50 rounded-full cursor-pointer" />
-          </div>
-          {/* decription */}
-          <p className="text-xs pb-4 sm:text-md pr-6">
-            {selectSingleData?.details}
-          </p>
-          {/* Price */}
-          <h1
-            className={`${"font-semibold text-xl sm:text-2xl pb-4"} ${colours}`}
-          >
-            $ {selectSingleData?.price}
-          </h1>
-          <p className="text-sm font-semibold py-3 pt-0 text-gray-800 cursor-pointer">
-            {selectSingleData?.category}
-          </p>
-          {/* revies */}
-          <div className="flex items-center justify-between pb-4">
-            {/* review icon */}
-            <div className={`${colours} flex items-center md:space-x-2`}>
-              <StarIcon />
-              <StarIcon />
-              <StarIcon />
-              <StarIcon />
-              <StarHalfIcon />
+            <p className="text-sm font-semibold py-3 pt-0 text-gray-800 cursor-pointer">
+              {selectSingleData?.category}
+            </p>
+            {/* revies */}
+            <div className="flex items-center justify-between pb-4">
+              {/* review icon */}
+              <div className={`${colours} flex items-center md:space-x-2`}>
+                <StarIcon />
+                <StarIcon />
+                <StarIcon />
+                <StarIcon />
+                <StarHalfIcon />
+              </div>
+              {/* review details */}
+              <p className="text-gray-500">441 reviews</p>
             </div>
-            {/* review details */}
-            <p className="text-gray-500">441 reviews</p>
-          </div>
-          {/* color palet */}
-          <div className="pb-4">
-            <h3 className={`${colours} font-semibold text-md`}>Colour</h3>
-            {/* single color */}
-            <div className="md:space-x-3 pt-10 pb-6">
-              {colorPalet?.map((color) => (
-                <span
-                  key={color}
-                  onClick={() => setColours("text-" + color + "-400")}
-                  className={`${
-                    "text-" + color + "-400 bg-" + color + "-50"
-                  } cursor-pointer p-4 rounded-full`}
-                >
-                  <FiberManualRecordIcon />
-                </span>
-              ))}
+            {/* color palet */}
+            <div className="pb-4">
+              <h3 className={`${colours} font-semibold text-md`}>Colour</h3>
+              {/* single color */}
+              <div className="md:space-x-3 pt-10 pb-6">
+                {colorPalet?.map((color) => (
+                  <span
+                    key={color}
+                    onClick={() => setColours("text-" + color + "-400")}
+                    className={`${
+                      "text-" + color + "-400 bg-" + color + "-50"
+                    } cursor-pointer p-4 rounded-full`}
+                  >
+                    <FiberManualRecordIcon />
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* button */}
-          <div className="space-x-3 md:space-x-4 pb-4">
-            <button
-              onClick={alreadyCart ? gotoOUrderPage : addToCart}
-              className="px-10 border text-center text-md font-semibold rounded-md bg-black text-white py-3 hover:bg-red-300 hover:text-black focus:bg-green-500"
-            >
-              {alreadyCart ? (
-                "Added"
-              ) : (
-                <>
-                  <AddShoppingCartIcon />
-                  Add to Cart
-                </>
-              )}
-            </button>
-            <button
-              onClick={BookmarkAdd}
-              className="px-2 border-2 text-center text-md font-semibold rounded-md bg-transparent text-black py-3"
-            >
-              {isBookmark ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-            </button>
-          </div>
+            {/* button */}
+            <div className="space-x-3 md:space-x-4 pb-4">
+              <button
+                onClick={alreadyCart ? gotoOUrderPage : addToCart}
+                className="px-10 border text-center text-md font-semibold rounded-md bg-black text-white py-3 hover:bg-red-300 hover:text-black focus:bg-green-500"
+              >
+                {alreadyCart ? (
+                  "Added"
+                ) : (
+                  <>
+                    <AddShoppingCartIcon />
+                    Add to Cart
+                  </>
+                )}
+              </button>
+              <button
+                onClick={BookmarkAdd}
+                className="px-2 border-2 text-center text-md font-semibold rounded-md bg-transparent text-black py-3"
+              >
+                {isBookmark ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+              </button>
+            </div>
 
-          {/* Home Delever charge */}
-          <p className="font-semibold text-md">Home Delivery - $ 10</p>
-        </div>
+            {/* Home Delever charge */}
+            <p className="font-semibold text-md">Home Delivery - $ 10</p>
+          </div>
+        </Reveal>
       </main>
       <SemilarProduct
         _id={selectSingleData?._id}

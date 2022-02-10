@@ -3,21 +3,31 @@ import { useDispatch } from "react-redux";
 import { removeToBookMark } from "../../features/appSlice";
 import Bounce from "react-reveal/Bounce";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 function BookMarkCard({ _id, image, title, category, price, details }) {
   const dispatch = useDispatch();
   const removeToBookmark = () => {
-    dispatch(removeToBookMark({ _id }));
-    toast.info("Remove From Bookmark done 😎!", {
-      icon: "🛒",
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    axios
+      .delete(
+        `https://murmuring-woodland-93721.herokuapp.com/dev/cart/delete/${_id}`
+      )
+      .then(function (response) {
+        dispatch(removeToBookMark({ _id }));
+        toast.info("Remove From Bookmark done 😎!", {
+          icon: "🛒",
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   return (
     <Bounce right>

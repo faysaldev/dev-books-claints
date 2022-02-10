@@ -22,7 +22,11 @@ import { css } from "@emotion/react";
 
 // todo for import the user slice
 import { loginUser, logoutUser, selectUser } from "./features/userSlice";
-import { selectAll, addAllProduct } from "./features/appSlice";
+import {
+  selectAll,
+  addAllProduct,
+  addToBookMarkFromDataBase,
+} from "./features/appSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import SucessPage from "./page/SucessPage";
@@ -49,6 +53,29 @@ function App() {
   const windowload = window.addEventListener("load", () => {
     setPreloader(false);
   });
+
+  useEffect(() => {
+    const localStorageUser = localStorage.getItem("user");
+
+    axios
+      .post(
+        `https://murmuring-woodland-93721.herokuapp.com/dev/cart/userBookmark/`,
+        {
+          email: localStorageUser,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        dispatch(addToBookMarkFromDataBase(response?.data?.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [selectU]);
 
   return (
     <>

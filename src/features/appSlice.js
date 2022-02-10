@@ -80,6 +80,9 @@ export const appSlice = createSlice({
       state.editeUser = null;
     },
     // for the bookmark action
+    addToBookMarkFromDataBase: (state, action) => {
+      state.bookmark = action.payload;
+    },
     addToBookMark: (state, action) => {
       state.bookmark = [...state.bookmark, action.payload];
     },
@@ -110,6 +113,7 @@ export const {
   removeAFromCart,
   addToBookMark,
   removeToBookMark,
+  addToBookMarkFromDataBase,
 } = appSlice.actions;
 export const selectAll = (state) => state.app.allProduct;
 export const selectSingle = (state) => state.app.singleProduct;
