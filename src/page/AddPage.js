@@ -90,7 +90,9 @@ function AddPage() {
       photoURL: userPhoto,
       role: role,
     };
+    console.log(userInfo);
 
+    // TODO: copy to the login page
     axios
       .post(
         "https://murmuring-woodland-93721.herokuapp.com/dev/user/login",
@@ -112,11 +114,12 @@ function AddPage() {
           axios
             .post(
               "https://murmuring-woodland-93721.herokuapp.com/dev/user/post",
-              userInfo,
               {
-                headers: {
-                  "Content-Type": "application/json",
-                },
+                name: name,
+                email: email,
+                password: password,
+                photoURL: userPhoto,
+                role: role,
               }
             )
             .then(function (response) {
@@ -127,20 +130,17 @@ function AddPage() {
                 icon: "success",
                 button: "Ok",
               });
+              reset();
             })
             .catch(function (error) {
-              swal({
-                text: "There Was an Error 🤔",
-                button: "Try Again",
-              });
+              console.log(error);
+              reset();
             });
         }
       })
       .catch(function (error) {
         console.log(error);
       });
-
-    reset();
   };
 
   //   TODO: product image handler

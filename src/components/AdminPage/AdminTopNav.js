@@ -45,6 +45,7 @@ function AdminTopNav({ dark }) {
           <Avatar
             onClick={() => {
               dispatch(logoutUser());
+              localStorage.removeItem("user");
               history.push("/");
             }}
             src={userData?.photoURL}

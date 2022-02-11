@@ -73,6 +73,9 @@ function UserPage() {
     setRole(editeUserData?.role);
   }, [editeUserData]);
 
+  const localStorageUser = localStorage.getItem("user");
+  // console.log(localStorageUser);
+
   return (
     <>
       <div
@@ -113,22 +116,47 @@ function UserPage() {
                 id="scrollbarHide"
               >
                 <h1 className="text-xl font-semibold pb-4 text-gray-600">
-                  All The Users We Have ({allUsersData?.length})
+                  All The Users We Have{" "}
+                  {localStorageUser == "fmridha166@gmail.com" && (
+                    <>({allUsersData?.length})</>
+                  )}
                 </h1>
                 {/* order list */}
                 <ul className="space-y-5">
-                  {allUsersData?.map(
-                    ({ _id, name, photoURL, email, password, role }) => (
-                      <UserCard
-                        key={_id}
-                        _id={_id}
-                        username={name}
-                        avatar={photoURL}
-                        email={email}
-                        password={password}
-                        role={role}
-                      />
-                    )
+                  {localStorageUser == "fmridha166@gmail.com" ? (
+                    <>
+                      {allUsersData?.map(
+                        ({ _id, name, photoURL, email, password, role }) => (
+                          <UserCard
+                            key={_id}
+                            _id={_id}
+                            username={name}
+                            avatar={photoURL}
+                            email={email}
+                            password={password}
+                            role={role}
+                          />
+                        )
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      {allUsersData
+                        ?.slice(3)
+                        .map(
+                          ({ _id, name, photoURL, email, password, role }) => (
+                            <UserCard
+                              key={_id}
+                              _id={_id}
+                              username={name}
+                              avatar={photoURL}
+                              email={email}
+                              password={password}
+                              role={role}
+                            />
+                          )
+                        )}
+                    </>
                   )}
                 </ul>
               </div>

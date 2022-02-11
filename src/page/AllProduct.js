@@ -17,174 +17,7 @@ import { Helmet } from "react-helmet";
 function AllProduct() {
   const [dark, setDark] = useState(false);
   const allProductInfo = useSelector(selectAll);
-
-  const DataInfo = [
-    {
-      id: 1,
-      img: "/engineers-day-concept_23-2148628083.jpg",
-      title: "Programminger couddogosti",
-      username: "Faysal Mridha",
-      userImage: "/IMG_2580.jpg",
-      price: "$768",
-      details:
-        "npm install moment --save # npm yarn add moment # Yarn Install-Package Moment.js # NuGet spm install moment --save # spm meteor add momentjs:moment # meteor ...",
-      category: "programming",
-    },
-    {
-      id: 1,
-      img: "/engineers-day-concept_23-2148628083.jpg",
-      title: "Programminger couddogosti",
-      username: "Faysal Mridha",
-      userImage: "/IMG_2580.jpg",
-      price: "$768",
-      details:
-        "npm install moment --save # npm yarn add moment # Yarn Install-Package Moment.js # NuGet spm install moment --save # spm meteor add momentjs:moment # meteor ...",
-      category: "programming",
-    },
-    {
-      id: 1,
-      img: "/engineers-day-concept_23-2148628083.jpg",
-      title: "Programminger couddogosti",
-      username: "Faysal Mridha",
-      userImage: "/IMG_2580.jpg",
-      price: "$768",
-      details:
-        "npm install moment --save # npm yarn add moment # Yarn Install-Package Moment.js # NuGet spm install moment --save # spm meteor add momentjs:moment # meteor ...",
-      category: "programming",
-    },
-    {
-      id: 1,
-      img: "/engineers-day-concept_23-2148628083.jpg",
-      title: "Programminger couddogosti",
-      username: "Faysal Mridha",
-      userImage: "/IMG_2580.jpg",
-      price: "$768",
-      details:
-        "npm install moment --save # npm yarn add moment # Yarn Install-Package Moment.js # NuGet spm install moment --save # spm meteor add momentjs:moment # meteor ...",
-      category: "programming",
-    },
-    {
-      id: 1,
-      img: "/engineers-day-concept_23-2148628083.jpg",
-      title: "Programminger couddogosti",
-      username: "Faysal Mridha",
-      userImage: "/IMG_2580.jpg",
-      price: "$768",
-      details:
-        "npm install moment --save # npm yarn add moment # Yarn Install-Package Moment.js # NuGet spm install moment --save # spm meteor add momentjs:moment # meteor ...",
-      category: "programming",
-    },
-    {
-      id: 1,
-      img: "/engineers-day-concept_23-2148628083.jpg",
-      title: "Programminger couddogosti",
-      username: "Faysal Mridha",
-      userImage: "/IMG_2580.jpg",
-      price: "$768",
-      details:
-        "npm install moment --save # npm yarn add moment # Yarn Install-Package Moment.js # NuGet spm install moment --save # spm meteor add momentjs:moment # meteor ...",
-      category: "programming",
-    },
-    {
-      id: 1,
-      img: "/engineers-day-concept_23-2148628083.jpg",
-      title: "Programminger couddogosti",
-      username: "Faysal Mridha",
-      userImage: "/IMG_2580.jpg",
-      price: "$768",
-      details:
-        "npm install moment --save # npm yarn add moment # Yarn Install-Package Moment.js # NuGet spm install moment --save # spm meteor add momentjs:moment # meteor ...",
-      category: "programming",
-    },
-    {
-      id: 1,
-      img: "/engineers-day-concept_23-2148628083.jpg",
-      title: "Programminger couddogosti",
-      username: "Faysal Mridha",
-      userImage: "/IMG_2580.jpg",
-      price: "$768",
-      details:
-        "npm install moment --save # npm yarn add moment # Yarn Install-Package Moment.js # NuGet spm install moment --save # spm meteor add momentjs:moment # meteor ...",
-      category: "programming",
-    },
-    {
-      id: 1,
-      img: "/engineers-day-concept_23-2148628083.jpg",
-      title: "Programminger couddogosti",
-      username: "Faysal Mridha",
-      userImage: "/IMG_2580.jpg",
-      price: "$768",
-      details:
-        "npm install moment --save # npm yarn add moment # Yarn Install-Package Moment.js # NuGet spm install moment --save # spm meteor add momentjs:moment # meteor ...",
-      category: "programming",
-    },
-    {
-      id: 1,
-      img: "/engineers-day-concept_23-2148628083.jpg",
-      title: "Programminger couddogosti",
-      username: "Faysal Mridha",
-      userImage: "/IMG_2580.jpg",
-      price: "$768",
-      details:
-        "npm install moment --save # npm yarn add moment # Yarn Install-Package Moment.js # NuGet spm install moment --save # spm meteor add momentjs:moment # meteor ...",
-      category: "programming",
-    },
-    {
-      id: 1,
-      img: "/engineers-day-concept_23-2148628083.jpg",
-      title: "Programminger couddogosti",
-      username: "Faysal Mridha",
-      userImage: "/IMG_2580.jpg",
-      price: "$768",
-      details:
-        "npm install moment --save # npm yarn add moment # Yarn Install-Package Moment.js # NuGet spm install moment --save # spm meteor add momentjs:moment # meteor ...",
-      category: "programming",
-    },
-    {
-      id: 1,
-      img: "/engineers-day-concept_23-2148628083.jpg",
-      title: "Programminger couddogosti",
-      username: "Faysal Mridha",
-      userImage: "/IMG_2580.jpg",
-      price: "$768",
-      details:
-        "npm install moment --save # npm yarn add moment # Yarn Install-Package Moment.js # NuGet spm install moment --save # spm meteor add momentjs:moment # meteor ...",
-      category: "programming",
-    },
-    {
-      id: 1,
-      img: "/engineers-day-concept_23-2148628083.jpg",
-      title: "Programminger couddogosti",
-      username: "Faysal Mridha",
-      userImage: "/IMG_2580.jpg",
-      price: "$768",
-      details:
-        "npm install moment --save # npm yarn add moment # Yarn Install-Package Moment.js # NuGet spm install moment --save # spm meteor add momentjs:moment # meteor ...",
-      category: "programming",
-    },
-    {
-      id: 1,
-      img: "/engineers-day-concept_23-2148628083.jpg",
-      title: "Programminger couddogosti",
-      username: "Faysal Mridha",
-      userImage: "/IMG_2580.jpg",
-      price: "$768",
-      details:
-        "npm install moment --save # npm yarn add moment # Yarn Install-Package Moment.js # NuGet spm install moment --save # spm meteor add momentjs:moment # meteor ...",
-      category: "programming",
-    },
-    {
-      id: 1,
-      img: "/engineers-day-concept_23-2148628083.jpg",
-      title: "Programminger couddogosti",
-      username: "Faysal Mridha",
-      userImage: "/IMG_2580.jpg",
-      price: "$768",
-      details:
-        "npm install moment --save # npm yarn add moment # Yarn Install-Package Moment.js # NuGet spm install moment --save # spm meteor add momentjs:moment # meteor ...",
-      category: "programming",
-    },
-  ];
+  const localStorageUser = localStorage.getItem("user");
 
   return (
     <>
@@ -221,29 +54,62 @@ function AllProduct() {
                 All The Product We Have <span className="text-red-400">:)</span>
               </h1>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6 md:gap-x-6 place-items-center">
-                {allProductInfo?.map(
-                  ({
-                    _id,
-                    image,
-                    title,
-                    username,
-                    userImg,
-                    price,
-                    details,
-                    category,
-                  }) => (
-                    <AdminSingleProduct
-                      key={_id}
-                      price={price}
-                      details={details}
-                      category={category}
-                      _id={_id}
-                      img={image}
-                      title={title}
-                      username={username}
-                      userImage={userImg}
-                    />
-                  )
+                {localStorageUser == "fmridha166@gmail.com" ? (
+                  <>
+                    {allProductInfo?.map(
+                      ({
+                        _id,
+                        image,
+                        title,
+                        username,
+                        userImg,
+                        price,
+                        details,
+                        category,
+                      }) => (
+                        <AdminSingleProduct
+                          key={_id}
+                          price={price}
+                          details={details}
+                          category={category}
+                          _id={_id}
+                          img={image}
+                          title={title}
+                          username={username}
+                          userImage={userImg}
+                        />
+                      )
+                    )}
+                  </>
+                ) : (
+                  <>
+                    {allProductInfo
+                      ?.slice(3)
+                      .map(
+                        ({
+                          _id,
+                          image,
+                          title,
+                          username,
+                          userImg,
+                          price,
+                          details,
+                          category,
+                        }) => (
+                          <AdminSingleProduct
+                            key={_id}
+                            price={price}
+                            details={details}
+                            category={category}
+                            _id={_id}
+                            img={image}
+                            title={title}
+                            username={username}
+                            userImage={userImg}
+                          />
+                        )
+                      )}
+                  </>
                 )}
               </div>
             </main>

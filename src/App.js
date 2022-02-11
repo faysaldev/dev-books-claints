@@ -77,6 +77,33 @@ function App() {
       });
   }, [selectU]);
 
+  // TODO: get the localStorage get user
+  useEffect(() => {
+    const localStorageUser = localStorage.getItem("user");
+    if (localStorageUser) {
+      axios
+        .post(
+          "https://murmuring-woodland-93721.herokuapp.com/dev/user/getemail",
+          {
+            email: localStorageUser,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then(function (response) {
+          dispatch(loginUser(response?.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      dispatch(logoutUser());
+    }
+  }, []);
+
   return (
     <>
       <Router>
